@@ -1,5 +1,7 @@
 package projekt.cloud.piece.c2pinyin
 
+const val EMPTY_STR = ""
+
 const val MIN_VALUE = 19968.toChar()
 
 const val MAX_VALUE = 40869.toChar()
