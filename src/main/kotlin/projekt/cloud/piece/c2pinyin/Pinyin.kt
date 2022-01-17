@@ -20,6 +20,12 @@ val Char.pinyin get() = when {
     else -> PINYIN_TABLE[pinyinCode]
 }
 
+@Suppress("unused")
+val String.pinyin: String get() = when {
+    isEmpty() -> EMPTY_STR
+    else -> StringBuilder().also { stringBuilder -> forEach { stringBuilder.append(it.pinyin) } }.toString()
+}
+
 val Char.isChinese: Boolean get() =
     (this in MIN_VALUE .. MAX_VALUE && pinyinCode > 0) || this == CHAR_12295
 
