@@ -3,6 +3,17 @@ package projekt.cloud.piece.c2pinyin
 import kotlin.experimental.and
 import kotlin.experimental.or
 
+@Suppress("unused")
+class Pinyin {
+    companion object {
+
+        @Suppress("unused")
+        @JvmStatic
+        fun getPinYin(c: Char) = c.pinyin
+
+    }
+}
+
 val Char.pinyin get() = when {
     !isChinese -> toString()
     this == CHAR_12295 -> PINYIN_12295
