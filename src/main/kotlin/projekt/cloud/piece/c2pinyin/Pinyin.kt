@@ -4,7 +4,7 @@ import kotlin.experimental.and
 import kotlin.experimental.or
 
 @Suppress("unused")
-class Pinyin {
+class Pinyin private constructor() {
     companion object {
 
         @Suppress("unused")
@@ -28,6 +28,9 @@ class Pinyin {
         fun isChinese(c: Char) = c.isChinese
 
     }
+    
+    init { throw IllegalAccessException() }
+    
 }
 
 val Char.pinyin get() = when {
