@@ -14,6 +14,10 @@ class Pinyin {
         @Suppress("unused")
         @JvmStatic
         fun getPinyin(s: String) = s.pinyin
+    
+        @Suppress("unused")
+        @JvmStatic
+        fun isChinese(c: Char) = c.isChinese
 
     }
 }
