@@ -74,8 +74,8 @@ private val Char.pinyinCode: Int get() {
 }
 
 private fun decodeIndex(paddings: ByteArray, indexes: ByteArray, offset: Int): Int {
-    var index = (indexes[offset] and 0xFF.toByte()).toShort()
-    if ((paddings[offset / 8] and BIT_MASKS[offset % 8].toByte()) != 0.toByte()) {
+    var index = indexes[offset].toShort() and 0xFF.toShort()
+    if ((paddings[(offset / 8)].toInt() and BIT_MASKS[offset % 8]) != 0) {
         index = index or PADDING_MASK.toShort()
     }
     return index.toInt()
