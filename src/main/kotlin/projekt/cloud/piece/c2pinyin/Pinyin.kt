@@ -38,6 +38,9 @@ fun String.pinyin(divider: String): String {
     if (isEmpty()) {
         return EMPTY_STR
     }
+    if (length == 1) {
+        return first().pinyin
+    }
     return StringBuilder(first().pinyin).also {
         for (i in 1 until length) {
             it.append(divider).append(this[i].pinyin)
