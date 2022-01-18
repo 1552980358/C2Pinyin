@@ -34,6 +34,20 @@ val String.pinyin: String get() = when {
     else -> StringBuilder().also { stringBuilder -> forEach { stringBuilder.append(it.pinyin) } }.toString()
 }
 
+fun String.pinyin(divider: String): String {
+    if (isEmpty()) {
+        return EMPTY_STR
+    }
+    return StringBuilder(first().pinyin).also {
+        for (i in 1 until length) {
+            it.append(divider).append(this[i].pinyin)
+        }
+    }.toString()
+}
+
+@Suppress("unused")
+fun String.pinyin(divider: Char = ' ') = pinyin(divider.toString())
+
 val Char.isChinese: Boolean get() =
     (this in MIN_VALUE .. MAX_VALUE && pinyinCode > 0) || this == CHAR_12295
 
