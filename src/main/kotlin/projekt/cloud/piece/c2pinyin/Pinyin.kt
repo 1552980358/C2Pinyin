@@ -1,5 +1,7 @@
 package projekt.cloud.piece.c2pinyin
 
+import projekt.cloud.piece.c2pinyin.projekt.cloud.piece.c2pinyin.CNCities
+import projekt.cloud.piece.c2pinyin.projekt.cloud.piece.c2pinyin.PinyinDictionary
 import kotlin.experimental.and
 import kotlin.experimental.or
 
@@ -42,25 +44,39 @@ val Char.pinyin get() = when {
 @Suppress("unused")
 val String.pinyin: String get() = when {
     isEmpty() -> EMPTY_STR
-    else -> StringBuilder().also { stringBuilder -> forEach { stringBuilder.append(it.pinyin) } }.toString()
+    else -> StringBuilder().also { stringBuilder -> CNCities.replaceAll(this).forEach { stringBuilder.append(it.pinyin) } }.toString()
 }
 
-fun String.pinyin(divider: String): String {
+fun String.pinyin(divider: String, vararg dictionaries: PinyinDictionary): String {
     if (isEmpty()) {
         return EMPTY_STR
     }
     if (length == 1) {
         return first().pinyin
     }
-    return StringBuilder(first().pinyin).also {
-        for (i in 1 until length) {
-            it.append(divider).append(this[i].pinyin)
+    var tmp = this
+    if (dictionaries.isNotEmpty()) {
+        dictionaries.forEach { tmp = it.replaceAll(tmp, divider) }
+    }
+    tmp = CNCities.replaceAll(tmp, divider)
+    return StringBuilder(tmp.first().pinyin).also {
+        for (i in 1 until tmp.length) {
+            it.append(divider).append(tmp[i].pinyin)
         }
     }.toString()
 }
 
 @Suppress("unused")
-fun String.pinyin(divider: Char = ' ') = pinyin(divider.toString())
+fun String.pinyin(divider: Char = ' ', vararg dictionaries: PinyinDictionary) = pinyin(divider.toString(), *dictionaries)
+
+@Suppress("unused")
+fun String.pinyin(dictionaries: List<PinyinDictionary>): String {
+    var tmp = this
+    if (dictionaries.isNotEmpty()) {
+        dictionaries.forEach { tmp = it.replaceAll(tmp) }
+    }
+    return tmp.pinyin
+}
 
 val Char.isChinese: Boolean get() =
     (this in MIN_VALUE .. MAX_VALUE && pinyinCode > 0) || this == CHAR_12295
