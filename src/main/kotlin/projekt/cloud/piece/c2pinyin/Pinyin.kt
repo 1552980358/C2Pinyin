@@ -9,7 +9,7 @@ class Pinyin {
 
         @Suppress("unused")
         @JvmStatic
-        fun getPinYin(c: Char) = c.pinyin
+        fun getPinyin(c: Char) = c.pinyin
     
         @Suppress("unused")
         @JvmStatic
