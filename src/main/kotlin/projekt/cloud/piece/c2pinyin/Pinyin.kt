@@ -10,10 +10,18 @@ class Pinyin {
         @Suppress("unused")
         @JvmStatic
         fun getPinYin(c: Char) = c.pinyin
-
+    
         @Suppress("unused")
         @JvmStatic
         fun getPinyin(s: String) = s.pinyin
+
+        @Suppress("unused")
+        @JvmStatic
+        fun getPinyin(s: String, divider: String) = s.pinyin(divider)
+    
+        @Suppress("unused")
+        @JvmStatic
+        fun getPinyin(s: String, divider: Char) = s.pinyin(divider)
     
         @Suppress("unused")
         @JvmStatic
