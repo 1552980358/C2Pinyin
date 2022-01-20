@@ -19,6 +19,10 @@ class Pinyin private constructor() {
         @Suppress("unused")
         @JvmStatic
         fun getPinyin(s: String, dictionaries: List<PinyinDictionary>) = s.pinyin(dictionaries)
+    
+        @Suppress("unused")
+        @JvmStatic
+        fun getPinyin(s: String, vararg dictionaries: PinyinDictionary) = s.pinyin(dictionaries = dictionaries)
 
         @Suppress("unused")
         @JvmStatic
