@@ -1,4 +1,4 @@
-package projekt.cloud.piece.c2pinyin.projekt.cloud.piece.c2pinyin
+package projekt.cloud.piece.c2pinyin
 
 import java.io.File
 

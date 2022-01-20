@@ -1,6 +1,4 @@
-package projekt.cloud.piece.c2pinyin.projekt.cloud.piece.c2pinyin
-
-import projekt.cloud.piece.c2pinyin.EMPTY_STR
+package projekt.cloud.piece.c2pinyin
 
 class PinyinMap(@Suppress("MemberVisibilityCanBePrivate") val name: String) {
     

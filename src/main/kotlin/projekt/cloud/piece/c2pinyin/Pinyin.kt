@@ -1,7 +1,6 @@
 package projekt.cloud.piece.c2pinyin
 
 import projekt.cloud.piece.c2pinyin.projekt.cloud.piece.c2pinyin.CNCities
-import projekt.cloud.piece.c2pinyin.projekt.cloud.piece.c2pinyin.PinyinDictionary
 import kotlin.experimental.and
 import kotlin.experimental.or
 

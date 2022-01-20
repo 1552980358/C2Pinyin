@@ -1,5 +1,8 @@
 package projekt.cloud.piece.c2pinyin.projekt.cloud.piece.c2pinyin
 
+import projekt.cloud.piece.c2pinyin.PinyinDictionary
+import projekt.cloud.piece.c2pinyin.PinyinMap
+
 val CNCities = PinyinDictionary(
     PinyinMap("都兰", "DU", "LAN"),
     PinyinMap("柞水", "ZHA", "SHUI"),
