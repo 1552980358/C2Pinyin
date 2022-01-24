@@ -87,4 +87,27 @@ class PinyinDictionary() {
     @Suppress("unused")
     fun replaceAll(string: String, divider: Char) = replaceAll(string, divider.toString())
     
+    operator fun get(string: String): PinyinMap {
+        pinyinMaps.forEach {
+            if (it.name == string) {
+                return it
+            }
+        }
+        throw Exception()
+    }
+    
+    operator fun set(name: String, pinyin: Array<String>) {
+        when (val index = pinyinMaps.indexOfFirst { it.name == name }) {
+            -1 -> add(name, *pinyin)
+            else -> pinyinMaps[index].update(*pinyin)
+        }
+    }
+    
+    operator fun set(name: String, pinyin: List<String>) {
+        when (val index = pinyinMaps.indexOfFirst { it.name == name }) {
+            -1 -> add(name, pinyin)
+            else -> pinyinMaps[index].update(pinyin)
+        }
+    }
+    
 }
