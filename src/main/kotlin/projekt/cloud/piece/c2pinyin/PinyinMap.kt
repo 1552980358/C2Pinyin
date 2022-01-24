@@ -20,6 +20,16 @@ class PinyinMap(@Suppress("MemberVisibilityCanBePrivate") val name: String) {
     @Suppress("unused")
     fun add(list: List<String>) = pinyinList.addAll(list)
     
+    fun update(vararg array: String): Boolean {
+        pinyinList.clear()
+        return add(*array)
+    }
+    
+    fun update(list: List<String>): Boolean {
+        pinyinList.clear()
+        return add(list)
+    }
+    
     @Suppress("MemberVisibilityCanBePrivate")
     val pinyin get() = when {
         pinyinList.isEmpty() -> EMPTY_STR
