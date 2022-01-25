@@ -96,6 +96,8 @@ class PinyinDictionary() {
         throw Exception()
     }
     
+    operator fun set(name: String, pinyin: String) = set(name, pinyin.split(DIVIDER))
+    
     operator fun set(name: String, pinyin: Array<String>) {
         when (val index = pinyinMaps.indexOfFirst { it.name == name }) {
             -1 -> add(name, *pinyin)
