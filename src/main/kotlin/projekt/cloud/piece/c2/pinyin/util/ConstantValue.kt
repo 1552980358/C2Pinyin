@@ -2,6 +2,8 @@ package projekt.cloud.piece.c2.pinyin.util
 
 object ConstantValue {
 
+    internal const val EMPTY_STR = ""
+
     internal const val CODING_MIN = 19968.toChar()
 
     internal const val CODING_MAX = 40869.toChar()
