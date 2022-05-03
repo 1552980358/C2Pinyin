@@ -21,6 +21,6 @@ object C2Pinyin {
 
     @JvmStatic
     fun String.convertToPinyin(separator: String = EMPTY_STR) =
-        pinyinArrayList.joinToString(separator = EMPTY_STR)
+        pinyinArrayList.joinToString(separator = separator)
 
 }
