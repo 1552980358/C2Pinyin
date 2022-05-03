@@ -1,6 +1,8 @@
 package projekt.cloud.piece.c2.pinyin
 
+import projekt.cloud.piece.c2.pinyin.dictionary.Dictionary
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.EMPTY_STR
+import projekt.cloud.piece.c2.pinyin.util.PinyinUtil
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinArrayList
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinStr
 
@@ -84,5 +86,12 @@ object C2Pinyin {
     @JvmStatic
     fun String.convertToPinyin(separator: String = EMPTY_STR) =
         pinyinArrayList.joinToString(separator = separator)
+
+    @JvmStatic
+    val dictionary get() = PinyinUtil.dictionary
+
+    @JvmStatic
+    fun dictionary(block: (Dictionary) -> Unit) =
+        dictionary.apply(block)
 
 }
