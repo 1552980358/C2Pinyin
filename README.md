@@ -10,6 +10,16 @@
 [![](https://jitpack.io/v/1552980358/C2Pinyin.svg)](https://jitpack.io/#1552980358/C2Pinyin)
 [![BuildProject](https://github.com/1552980358/C2Pinyin/actions/workflows/BuildProject.yml/badge.svg)](https://github.com/1552980358/C2Pinyin/actions)
 
+## Version Explanation
+- `<VERSION>.<FEATURE>.<PATCH>`
+- `VERSION` 
+  - Updated (+1) when there is any large-scaled architectural update of the project
+- `FEATURE`
+  - Updated (+1) when there is any feature added to the project
+  - Cleared when `VERSION` is updated
+- `PATCH`
+  - Updated (+1) when there is any bug fixing or optimization of features
+  - Cleared when `FEATURE` or `VERSION` is updated
 
 ## Add C2Pinyin to project
 - VERSION_CODE please refer to the latest version from [Releases](https://github.com/1552980358/C2Pinyin/releases) page or [JitPack](https://jitpack.io/#1552980358/C2Pinyin) release page.
