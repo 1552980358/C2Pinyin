@@ -20,19 +20,16 @@ import kotlin.experimental.or
 
 object PinyinUtil {
 
-    @JvmStatic
     internal val Char.pinyinStr get() = when {
         !isChinese -> toString()
         this == CHAR_12295 -> PINYIN_12295
         else -> PINYIN[code]
     }
 
-    @JvmStatic
     internal val String.pinyinArrayList get() = ArrayList<String>().also { arrayList ->
         forEach { arrayList.add(it.pinyinStr) }
     }
 
-    @JvmStatic
     internal val Char.isChinese get() =
         (isInCodingRange && validCode) || this == CHAR_12295
 
