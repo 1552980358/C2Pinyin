@@ -30,7 +30,7 @@ object PinyinUtil {
         forEach { arrayList.add(it.pinyinStr) }
     }
 
-    internal val Char.isChinese get() =
+    private val Char.isChinese get() =
         (isInCodingRange && validCode) || this == CHAR_12295
 
     private val Char.isInCodingRange get() =
