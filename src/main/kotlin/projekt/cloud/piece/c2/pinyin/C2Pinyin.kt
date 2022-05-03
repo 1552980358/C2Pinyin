@@ -4,6 +4,13 @@ import projekt.cloud.piece.c2.pinyin.util.ConstantValue.EMPTY_STR
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinArrayList
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinStr
 
+/**
+ * Object [C2Pinyin]
+ * Getters
+ *  [Char.pinyin]
+ *  [String.pinyin]
+ *  [String.convertToPinyin]
+ **/
 object C2Pinyin {
 
     @JvmStatic
