@@ -4,6 +4,8 @@ object ConstantValue {
 
     internal const val EMPTY_STR = ""
 
+    internal const val INDEX_NOT_FOUND = -1
+
     internal const val CODING_MIN = 19968.toChar()
 
     internal const val CODING_MAX = 40869.toChar()
