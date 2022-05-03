@@ -12,7 +12,7 @@
 
 
 ## Add C2Pinyin to project
-- VERSION_CODE please refers to latest version from [Releases](https://github.com/1552980358/C2Pinyin/releases) page or [JitPack](https://jitpack.io/#1552980358/C2Pinyin) release page.
+- VERSION_CODE please refer to the latest version from [Releases](https://github.com/1552980358/C2Pinyin/releases) page or [JitPack](https://jitpack.io/#1552980358/C2Pinyin) release page.
 
 - Kotlin/Java Gradle project
 
