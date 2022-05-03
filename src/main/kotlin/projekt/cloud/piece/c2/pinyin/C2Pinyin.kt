@@ -94,10 +94,17 @@ object C2Pinyin {
     @JvmStatic
     fun String.convertToPinyin(separator: String = EMPTY_STR) =
         pinyinArrayList.joinToString(separator = separator)
-
+    
+    /**
+     * [dictionary] get [Dictionary] instance
+     **/
     @JvmStatic
     val dictionary get() = PinyinUtil.dictionary
-
+    
+    /**
+     * [dictionary] call [block] with [Dictionary] instance
+     * @param block ([Dictionary]) -> [Unit]
+     **/
     @JvmStatic
     fun dictionary(block: (Dictionary) -> Unit) =
         dictionary.apply(block)
