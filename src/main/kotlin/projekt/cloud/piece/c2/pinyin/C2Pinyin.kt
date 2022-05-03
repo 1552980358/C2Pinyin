@@ -2,9 +2,12 @@ package projekt.cloud.piece.c2.pinyin
 
 import projekt.cloud.piece.c2.pinyin.dictionary.Dictionary
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.EMPTY_STR
+import projekt.cloud.piece.c2.pinyin.util.DictionaryUtil.asDictionaryItems
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinArrayList
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinStr
+import java.io.File
+import java.io.InputStream
 
 /**
  * Object [C2Pinyin]
@@ -12,6 +15,11 @@ import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinStr
  *  [Char.pinyin]
  *  [String.pinyin]
  *  [String.convertToPinyin]
+ *  [dictionary]
+ *  [String.loadDictionary]
+ *  [File.loadDictionary]
+ *  [InputStream.loadDictionary]
+ *
  **/
 object C2Pinyin {
 
@@ -93,5 +101,29 @@ object C2Pinyin {
     @JvmStatic
     fun dictionary(block: (Dictionary) -> Unit) =
         dictionary.apply(block)
+    
+    /**
+     * [String.loadDictionary]
+     **/
+    @JvmStatic
+    fun String.loadDictionary() {
+        dictionary += asDictionaryItems
+    }
+    
+    /**
+     * [File.loadDictionary]
+     **/
+    @JvmStatic
+    fun File.loadDictionary() {
+        dictionary += asDictionaryItems
+    }
+    
+    /**
+     * [InputStream.loadDictionary]
+     **/
+    @JvmStatic
+    fun InputStream.loadDictionary() {
+        dictionary += asDictionaryItems
+    }
 
 }
