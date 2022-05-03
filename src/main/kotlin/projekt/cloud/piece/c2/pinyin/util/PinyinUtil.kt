@@ -1,17 +1,20 @@
 package projekt.cloud.piece.c2.pinyin.util
 
+import projekt.cloud.piece.c2.pinyin.C2Pinyin.pinyin
 import projekt.cloud.piece.c2.pinyin.coding.CodingA.CODING_INDEX_A
 import projekt.cloud.piece.c2.pinyin.coding.CodingA.CODING_PADDING_A
 import projekt.cloud.piece.c2.pinyin.coding.CodingB.CODING_INDEX_B
 import projekt.cloud.piece.c2.pinyin.coding.CodingB.CODING_PADDING_B
 import projekt.cloud.piece.c2.pinyin.coding.CodingC.CODING_INDEX_C
 import projekt.cloud.piece.c2.pinyin.coding.CodingC.CODING_PADDING_C
+import projekt.cloud.piece.c2.pinyin.dictionary.Dictionary
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.BIT_MASKS
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.CHAR_12295
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.CODING_OFFSET_A
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.CODING_OFFSET_B
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.CODING_MAX
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.CODING_MIN
+import projekt.cloud.piece.c2.pinyin.util.ConstantValue.INDEX_NOT_FOUND
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.PADDING_MASK
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.PINYIN
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.PINYIN_12295
@@ -20,14 +23,25 @@ import kotlin.experimental.or
 
 object PinyinUtil {
 
+    internal val dictionary = Dictionary()
+
     internal val Char.pinyinStr get() = when {
         !isChinese -> toString()
         this == CHAR_12295 -> PINYIN_12295
         else -> PINYIN[code]
     }
 
-    internal val String.pinyinArrayList get() = ArrayList<String>().also { arrayList ->
-        forEach { arrayList.add(it.pinyinStr) }
+    internal val String.pinyinArrayList get() = ArrayList<String>().also { resultArrayList ->
+        forEach { resultArrayList.add(it.pinyin) }
+        var searchIndex: Int
+        dictionary.forEach { dictionaryItem ->
+            searchIndex = indexOf(dictionaryItem.text)
+            if (searchIndex != INDEX_NOT_FOUND) {
+                dictionaryItem.pinyin.forEachIndexed { index, pinyin ->
+                    resultArrayList[searchIndex + index] = pinyin
+                }
+            }
+        }
     }
 
     private val Char.isChinese get() =
