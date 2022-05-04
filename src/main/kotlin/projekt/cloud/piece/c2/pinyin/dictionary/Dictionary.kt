@@ -76,8 +76,9 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
      * [add]
      * @param text [String]
      * @param pinyin [List]<[String]>
+     * @return [DictionaryItem]
      **/
-    fun add(text: String, pinyin: List<String>) {
+    fun add(text: String, pinyin: List<String>) = apply {
         this += DictionaryItem(text, pinyin)
     }
 
@@ -85,8 +86,9 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
      * [add]
      * @param text [String]
      * @param pinyin vararg of [String]
+     * @return [DictionaryItem]
      **/
-    fun add(text: String, vararg pinyin: String) {
+    fun add(text: String, vararg pinyin: String) = apply {
         this += DictionaryItem(text, pinyin.toList())
     }
 
