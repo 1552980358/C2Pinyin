@@ -79,6 +79,22 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
     operator fun minusAssign(text: String) {
         removeAll { it.text == text }
     }
+    
+    /**
+     * [minusAssign]
+     * @param textList [List]<[String]>
+     **/
+    operator fun minusAssign(textList: List<String>) {
+        textList.forEach { this -= it }
+    }
+    
+    /**
+     * [minusAssign]
+     * @param texts [Array]<[String]>
+     **/
+    operator fun minusAssign(texts: Array<String>) {
+        texts.forEach { this -= it }
+    }
 
     /**
      * [add]
