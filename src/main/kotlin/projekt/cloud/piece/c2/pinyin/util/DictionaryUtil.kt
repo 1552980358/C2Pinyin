@@ -100,5 +100,23 @@ object DictionaryUtil {
      **/
     private val String.isDictionaryItem get() =
         uppercase().matches(REGEX_DICTIONARY_ITEM.toRegex())
+    
+    /**
+     * [MutableList]<[DictionaryItem]>.[plus]
+     * @param dictionaryItem [DictionaryItem]
+     **/
+    @JvmStatic
+    operator fun MutableList<DictionaryItem>.plus(dictionaryItem: DictionaryItem) = apply {
+        add(dictionaryItem)
+    }
+    
+    /**
+     * [MutableList]<[DictionaryItem]>.[plus]
+     * @param pair [Pair]<[String], [List]<[String]>>
+     **/
+    @JvmStatic
+    operator fun MutableList<DictionaryItem>.plus(pair: Pair<String, List<String>>) = apply() {
+        add(DictionaryItem(pair))
+    }
 
 }
