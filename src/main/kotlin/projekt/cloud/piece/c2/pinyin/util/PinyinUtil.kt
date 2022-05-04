@@ -34,11 +34,13 @@ object PinyinUtil {
     internal val String.pinyinArrayList get() = ArrayList<String>().also { resultArrayList ->
         forEach { resultArrayList.add(it.pinyin) }
         var searchIndex: Int
-        dictionary.forEach { dictionaryItem ->
-            searchIndex = indexOf(dictionaryItem.text)
-            if (searchIndex != INDEX_NOT_FOUND) {
-                dictionaryItem.pinyin.forEachIndexed { index, pinyin ->
-                    resultArrayList[searchIndex + index] = pinyin
+        if (dictionary.isNotEmpty()) {
+            dictionary.forEach { dictionaryItem ->
+                searchIndex = indexOf(dictionaryItem.text)
+                if (searchIndex != INDEX_NOT_FOUND) {
+                    dictionaryItem.pinyin.forEachIndexed { index, pinyin ->
+                        resultArrayList[searchIndex + index] = pinyin
+                    }
                 }
             }
         }
