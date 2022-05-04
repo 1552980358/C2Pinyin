@@ -95,6 +95,7 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
     /**
      * [add]
      * @param dictionaryItems vararg of [DictionaryItem]
+     * @return [DictionaryItem]
      **/
     fun add(vararg dictionaryItems: DictionaryItem) = apply {
         this += dictionaryItems
