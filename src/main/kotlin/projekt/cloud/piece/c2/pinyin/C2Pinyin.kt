@@ -16,9 +16,9 @@ import java.io.InputStream
  *  [String.pinyin]
  *  [String.convertToPinyin]
  *  [dictionary]
- *  [String.loadDictionary]
- *  [File.loadDictionary]
- *  [InputStream.loadDictionary]
+ *  [String.importDictionary]
+ *  [File.importDictionary]
+ *  [InputStream.importDictionary]
  *
  **/
 object C2Pinyin {
@@ -110,26 +110,26 @@ object C2Pinyin {
         dictionary.apply(block)
     
     /**
-     * [String.loadDictionary]
+     * [String.importDictionary]
      **/
     @JvmStatic
-    fun String.loadDictionary() {
+    fun String.importDictionary() {
         dictionary += asDictionaryItems
     }
     
     /**
-     * [File.loadDictionary]
+     * [File.importDictionary]
      **/
     @JvmStatic
-    fun File.loadDictionary() {
+    fun File.importDictionary() {
         dictionary += asDictionaryItems
     }
     
     /**
-     * [InputStream.loadDictionary]
+     * [InputStream.importDictionary]
      **/
     @JvmStatic
-    fun InputStream.loadDictionary() {
+    fun InputStream.importDictionary() {
         dictionary += asDictionaryItems
     }
 
