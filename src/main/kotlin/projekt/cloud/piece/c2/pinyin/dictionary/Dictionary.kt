@@ -63,14 +63,6 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
     operator fun minusAssign(dictionaryItem: DictionaryItem) {
         remove(dictionaryItem)
     }
-
-    /**
-     * [minusAssign]
-     * @param text [String]
-     **/
-    operator fun minusAssign(text: String) {
-        removeAll { it.text == text }
-    }
     
     /**
      * [minusAssign]
@@ -86,6 +78,14 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
      **/
     operator fun minusAssign(dictionaryItems: Array<DictionaryItem>) {
         removeAll(dictionaryItems)
+    }
+
+    /**
+     * [minusAssign]
+     * @param text [String]
+     **/
+    operator fun minusAssign(text: String) {
+        removeAll { it.text == text }
     }
 
     /**
