@@ -66,14 +66,6 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
     
     /**
      * [minusAssign]
-     * @param dictionaryItemList [List]<[DictionaryItem]>
-     **/
-    operator fun minusAssign(dictionaryItemList: List<DictionaryItem>) {
-        removeAll(dictionaryItemList)
-    }
-    
-    /**
-     * [minusAssign]
      * @param dictionaryItems [Array]<[DictionaryItem]>
      **/
     operator fun minusAssign(dictionaryItems: Array<DictionaryItem>) {
