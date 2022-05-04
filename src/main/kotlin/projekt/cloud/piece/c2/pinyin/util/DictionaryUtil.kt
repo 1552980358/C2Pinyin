@@ -1,6 +1,7 @@
 package projekt.cloud.piece.c2.pinyin.util
 
 import projekt.cloud.piece.c2.pinyin.dictionary.DictionaryItem
+import projekt.cloud.piece.c2.pinyin.util.DictionaryUtil.plus
 import java.io.File
 import java.io.InputStream
 
@@ -100,6 +101,22 @@ object DictionaryUtil {
      **/
     private val String.isDictionaryItem get() =
         uppercase().matches(REGEX_DICTIONARY_ITEM.toRegex())
+    
+    /**
+     * [Pair]<[String], [List]<[String]>>.[plus]
+     * @param dictionaryItem [DictionaryItem]
+     **/
+    @JvmStatic
+    operator fun Pair<String, List<String>>.plus(dictionaryItem: DictionaryItem) =
+        DictionaryItem(this) + dictionaryItem
+    
+    /**
+     * [Pair]<[String], [List]<[String]>>.[plus]
+     * @param pair [Pair]<[String], [List]<[String]>>
+     **/
+    @JvmStatic
+    operator fun Pair<String, List<String>>.plus(pair: Pair<String, List<String>>) =
+        DictionaryItem(this) + pair
     
     /**
      * [MutableList]<[DictionaryItem]>.[plus]
