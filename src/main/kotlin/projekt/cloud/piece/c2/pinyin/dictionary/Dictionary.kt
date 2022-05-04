@@ -91,5 +91,22 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
     fun add(text: String, vararg pinyin: String) = apply {
         this += DictionaryItem(text, pinyin.toList())
     }
+    
+    /**
+     * [add]
+     * @param dictionaryItems vararg of [DictionaryItem]
+     **/
+    fun add(vararg dictionaryItems: DictionaryItem) = apply {
+        this += dictionaryItems
+    }
+    
+    /**
+     * [add]
+     * @param dictionaryItemList [List]<[DictionaryItem]>
+     * @return [DictionaryItem]
+     **/
+    fun add(dictionaryItemList: List<DictionaryItem>) = apply {
+        this += dictionaryItemList
+    }
 
 }
