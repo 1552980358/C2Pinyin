@@ -12,4 +12,11 @@ data class DictionaryItem(val text: String, var pinyin: List<String>) {
      * @param pinyin vararg of [String]
      **/
     constructor(text: String, vararg pinyin: String): this(text, pinyin.toList())
+    
+    /**
+     * Constructor
+     * @param pair <[String], [List]<[String]>>
+     **/
+    constructor(pair: Pair<String, List<String>>): this(pair.first, pair.second)
+    
 }
