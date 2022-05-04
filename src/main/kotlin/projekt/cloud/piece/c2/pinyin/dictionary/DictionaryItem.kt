@@ -19,4 +19,18 @@ data class DictionaryItem(val text: String, var pinyin: List<String>) {
      **/
     constructor(pair: Pair<String, List<String>>): this(pair.first, pair.second)
     
+    /**
+     * [plus]
+     * @param dictionaryItem [DictionaryItem]
+     **/
+    operator fun plus(dictionaryItem: DictionaryItem) =
+        arrayListOf(this, dictionaryItem)
+    
+    /**
+     * [plus]
+     * @param pair <[String], [List]<[String]>>
+     **/
+    operator fun plus(pair: Pair<String, List<String>>) =
+        arrayListOf(this, DictionaryItem(pair))
+    
 }
