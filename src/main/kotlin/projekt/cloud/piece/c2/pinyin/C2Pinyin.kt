@@ -133,19 +133,10 @@ object C2Pinyin {
         dictionary += asDictionaryItems
     }
     
-    @Volatile
-    var isLowercaseEnabled = false
-        set(value) {
-            isCamelCaseEnabled = false
-            field = value
-        }
+    @JvmStatic
+    val isLowercaseEnabled get() = lowercaseEnabled
     
-    @Volatile
-    var isCamelCaseEnabled = false
-        set(value) {
-            isLowercaseEnabled = false
-            field = value
-        }
-    
+    @JvmStatic
+    val isCamelcaseEnabled get() = camelCaseEnabled
     
 }

@@ -26,10 +26,28 @@ import kotlin.experimental.or
 object PinyinUtil {
 
     internal val dictionary = Dictionary()
+    
+    @Volatile
+    internal var lowercaseEnabled = false
+        set(value) {
+            if (camelCaseEnabled && value) {
+                camelCaseEnabled = false
+            }
+            field = value
+        }
+    
+    @Volatile
+    internal var camelCaseEnabled = false
+        set(value) {
+            if (lowercaseEnabled && value) {
+                lowercaseEnabled = false
+            }
+            field = value
+        }
 
     internal val Char.pinyinStr get() = when {
-        isLowercaseEnabled -> lowercase
-        isCamelCaseEnabled -> camelcase
+        lowercaseEnabled -> lowercase
+        camelCaseEnabled -> camelcase
         else -> asPinyin
     }
 
