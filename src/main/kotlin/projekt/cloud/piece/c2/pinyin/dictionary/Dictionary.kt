@@ -137,24 +137,27 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
     /**
      * [remove]
      * @param text [String]
+     * @return [DictionaryItem]
      **/
-    fun remove(text: String) {
+    fun remove(text: String) = apply {
         this -= text
     }
     
     /**
      * [remove]
      * @param textList [List]<[String]>
+     * @return [DictionaryItem]
      **/
-    fun remove(textList: List<String>) {
+    fun remove(textList: List<String>) = apply  {
         this -= textList
     }
     
     /**
      * [remove]
      * @param texts vararg of [String]
+     * @return [DictionaryItem]
      **/
-    fun remove(vararg texts: String) {
+    fun remove(vararg texts: String) = apply {
         remove(texts.toList())
     }
     
