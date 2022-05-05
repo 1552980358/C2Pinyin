@@ -42,6 +42,15 @@ object PinyinUtil {
             }
             field = value
         }
+    
+    internal fun updateCases(lowercase: Boolean, camelcase: Boolean) = when {
+        lowercase == camelcase -> {
+            lowercaseEnabled = false
+            camelCaseEnabled = false
+        }
+        lowercase -> lowercaseEnabled = true
+        else -> camelCaseEnabled = true
+    }
 
     internal val Char.pinyinStr get() = when {
         lowercaseEnabled -> lowercase
