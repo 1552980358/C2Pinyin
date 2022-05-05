@@ -108,6 +108,78 @@
   // With InputStream
   File("dict.txt").inputStream().use { importDictionary() }     // Any child InputStream instance is supported
   ```
+  
+- Java
+  ```Java
+  import projekt.cloud.piece.c2.pinyin.C2Pinyin;
+  import static projekt.cloud.piece.c2.pinyin.C2Pinyin.convertToPinyin;
+  import static projekt.cloud.piece.c2.pinyin.C2Pinyin.dictionary;
+  import static projekt.cloud.piece.c2.pinyin.C2Pinyin.getDictionary;
+  import static projekt.cloud.piece.c2.pinyin.C2Pinyin.getPinyin;
+  import static projekt.cloud.piece.c2.pinyin.C2Pinyin.importDictionary;
+  import projekt.cloud.piece.c2.pinyin.dictionary.DictionaryItem;
+  ...
+  
+  // Get a char's pinyin
+  var zhong = '中';
+  / Identifier method call: C2Pinyin.getPinyin
+  getPinyin(zhong);
+  
+  // Get a string's pinyins
+  var zhongWen = "中文";
+  // Identifier method call: C2Pinyin.getPinyin
+  getPinyin(zhongWen);
+  // With a separator
+  // Identifier method call: C2Pinyin.convertToPinyin
+  convertToPinyin(zhongWen, "-");
+  
+  var yinHangList = new ArrayList<String>();
+  yinHangList.add("YIN");
+  yinHangList.add("HANG");
+
+  // Add dictionary item with Dictionary instance getter
+  // With method add, <String>, <ArrayList>
+  // Identifier method call: C2Pinyin.getDictionary()
+  getDictionary().add("银行", yinHangList);
+
+  // Operation with Dictionary instance method block
+  // Identifier method call: C2Pinyin.dictionary
+  dictionary((dictionary) -> {
+      var jueSePinyin = new String[2];
+      jueSePinyin[0] = "JUE";
+      jueSePinyin[1] = "SE";
+
+      var daiFuList = new ArrayList<String>();
+      daiFuList.add("DAI");
+      daiFuList.add("FU");
+
+      dictionary.add("行长", "HANG", "ZHANG")   // <Text>, <Pinyin[0]>, <Pinyin[1]> ...
+              .add("角色", jueSePinyin)         // <Text>, <Pinyin Array>
+              .add(new DictionaryItem("大夫", daiFuList));  // <DictionaryItem>
+
+      // Remove dictionary item
+      var removeList = new ArrayList<String>();
+      removeList.add("大夫");
+      dictionary.remove("银行")
+              .remove("行长", "角色")
+              .remove(removeList);        // Array is also supported
+  }
+  
+  // Import dictionary with formatted raw text
+  var dictionaryStr = "银行=YIN'HANG\n行长=HANG'ZHANG\n传记=ZHUAN'JI\n角色=JUE'SE\n大夫=DAI'FU";
+
+  // Identifier method call: C2Pinyin.importDictionary
+  // Using String
+  importDictionary(dictionaryStr);
+  // Using File
+  importDictionary(new File("PATH"));
+  // Using Stream
+  try {
+      importDictionary(new FileInputStream("PATH"));
+  } catch (FileNotFoundException fileNotFoundException) {
+      fileNotFoundException.printStackTrace();
+  }
+  ```
 
 ## External Dictionary
 - Format
