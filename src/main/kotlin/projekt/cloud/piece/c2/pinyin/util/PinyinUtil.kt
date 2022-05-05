@@ -1,8 +1,5 @@
 package projekt.cloud.piece.c2.pinyin.util
 
-import projekt.cloud.piece.c2.pinyin.C2Pinyin.isCamelCaseEnabled
-import projekt.cloud.piece.c2.pinyin.C2Pinyin.isLowercaseEnabled
-import projekt.cloud.piece.c2.pinyin.C2Pinyin.pinyin
 import projekt.cloud.piece.c2.pinyin.coding.CodingA.CODING_INDEX_A
 import projekt.cloud.piece.c2.pinyin.coding.CodingA.CODING_PADDING_A
 import projekt.cloud.piece.c2.pinyin.coding.CodingB.CODING_INDEX_B
@@ -16,6 +13,7 @@ import projekt.cloud.piece.c2.pinyin.util.ConstantValue.CODING_OFFSET_A
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.CODING_OFFSET_B
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.CODING_MAX
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.CODING_MIN
+import projekt.cloud.piece.c2.pinyin.util.ConstantValue.EMPTY_STR
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.INDEX_NOT_FOUND
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.PADDING_MASK
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.PINYIN
@@ -52,7 +50,7 @@ object PinyinUtil {
     }
 
     internal val String.pinyinArrayList get() = ArrayList<String>().also { resultArrayList ->
-        forEach { resultArrayList.add(it.pinyin) }
+        repeat(length) { resultArrayList.add(EMPTY_STR) }
         var searchIndex: Int
         if (dictionary.isNotEmpty()) {
             dictionary.forEach { dictionaryItem ->
@@ -62,6 +60,12 @@ object PinyinUtil {
                         resultArrayList[searchIndex + index] = pinyin
                     }
                 }
+            }
+        }
+        resultArrayList.forEachIndexed { index, pinyin ->
+            resultArrayList[index] = when {
+                pinyin.isBlank() -> this[index].asPinyin
+                else -> pinyin.cases
             }
         }
     }
@@ -102,5 +106,11 @@ object PinyinUtil {
     private val Char.camelcase get() = asPinyin.camelcase
     
     private val String.camelcase get() = first() + substring(1).lowercase()
-
+    
+    private val String.cases get() = when {
+        lowercaseEnabled -> lowercase()
+        camelCaseEnabled -> camelcase
+        else -> this
+    }
+    
 }
