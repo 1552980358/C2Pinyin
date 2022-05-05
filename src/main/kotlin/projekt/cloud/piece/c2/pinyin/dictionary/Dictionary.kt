@@ -133,5 +133,31 @@ class Dictionary internal constructor(): ArrayList<DictionaryItem>() {
     fun add(dictionaryItemList: List<DictionaryItem>) = apply {
         this += dictionaryItemList
     }
+    
+    /**
+     * [remove]
+     * @param text [String]
+     **/
+    fun remove(text: String) {
+        this -= text
+    }
+    
+    /**
+     * [remove]
+     * @param textList [List]<[String]>
+     **/
+    fun remove(textList: List<String>) {
+        this -= textList
+    }
+    
+    /**
+     * [remove]
+     * @param texts vararg of [String]
+     **/
+    fun remove(vararg texts: String) {
+        remove(texts.toList())
+    }
+    
+    
 
 }
