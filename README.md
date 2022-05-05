@@ -195,6 +195,20 @@
     大夫-daI'fU
     ```
 
+## Pinyin Cases
+- Provide Uppercase, Lowercase and camelcase
+- Uppercase is the default cases
+- Custom case can be set with 3 methods
+  - `C2Pinyin.setUppercase()`
+    - Lowercase, Default case, all letters are in uppercase
+    - Example: `中文` gives `ZHONGWEN`
+  - `C2Pinyin.setLowercase()`
+    - Lowercase, all letters are in lowercase
+    - Example: `中文` gives `zhongwen`
+  - `C2Pinyin.setCamelcase()`
+    - Camelcase, first letter of each pinyin is in capital letter, and remaining is in lowercase
+    - Example: `中文` gives `ZhongWen`
+
 ## Open-Source License
 [Apache License 2.0](LICENSE)
 
