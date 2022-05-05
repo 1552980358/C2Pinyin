@@ -70,5 +70,9 @@ object PinyinUtil {
         }
         return index.toInt()
     }
+    
+    private val Char.lowercase get() = asPinyin.run { lowercase() }
+    
+    private val Char.camelcase get() = asPinyin.run { first() + substring(1).lowercase() }
 
 }
