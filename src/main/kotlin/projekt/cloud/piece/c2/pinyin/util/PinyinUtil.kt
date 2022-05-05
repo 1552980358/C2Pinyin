@@ -45,7 +45,13 @@ object PinyinUtil {
             }
         }
     }
-
+    
+    private val Char.asPinyin get() = when {
+        !isChinese -> toString()
+        this == CHAR_12295 -> PINYIN_12295
+        else -> PINYIN[code]
+    }
+    
     private val Char.isChinese get() =
         (isInCodingRange && validCode) || this == CHAR_12295
 
