@@ -8,6 +8,7 @@ import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.camelCaseEnabled
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.lowercaseEnabled
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinArrayList
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinStr
+import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.updateCases
 import java.io.File
 import java.io.InputStream
 
@@ -142,13 +143,16 @@ object C2Pinyin {
     val isCamelcaseEnabled get() = camelCaseEnabled
     
     @JvmStatic
-    fun setCases(lowercase: Boolean = lowercaseEnabled, camelcase: Boolean = camelCaseEnabled) {
-        if (lowercase != lowercaseEnabled) {
-            lowercaseEnabled = lowercase
-        }
-        if (camelcase != camelCaseEnabled) {
-            camelCaseEnabled = camelcase
-        }
-    }
+    fun setUppercase() = setCases()
+    
+    @JvmStatic
+    fun setLowercase() = setCases(lowercase = true)
+    
+    @JvmStatic
+    fun setCamelcase() = setCases(camelcase = true)
+    
+    @JvmStatic
+    fun setCases(lowercase: Boolean = false, camelcase: Boolean = false) =
+        updateCases(lowercase, camelcase)
     
 }
