@@ -64,7 +64,7 @@ object PinyinUtil {
         }
         resultArrayList.forEachIndexed { index, pinyin ->
             resultArrayList[index] = when {
-                pinyin.isBlank() -> this[index].asPinyin
+                pinyin.isBlank() -> this[index].pinyinStr
                 else -> pinyin.cases
             }
         }
