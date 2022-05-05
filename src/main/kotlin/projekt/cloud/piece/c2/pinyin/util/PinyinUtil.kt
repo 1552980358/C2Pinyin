@@ -1,5 +1,7 @@
 package projekt.cloud.piece.c2.pinyin.util
 
+import projekt.cloud.piece.c2.pinyin.C2Pinyin.isCamelCaseEnabled
+import projekt.cloud.piece.c2.pinyin.C2Pinyin.isLowercaseEnabled
 import projekt.cloud.piece.c2.pinyin.C2Pinyin.pinyin
 import projekt.cloud.piece.c2.pinyin.coding.CodingA.CODING_INDEX_A
 import projekt.cloud.piece.c2.pinyin.coding.CodingA.CODING_PADDING_A
@@ -26,9 +28,9 @@ object PinyinUtil {
     internal val dictionary = Dictionary()
 
     internal val Char.pinyinStr get() = when {
-        !isChinese -> toString()
-        this == CHAR_12295 -> PINYIN_12295
-        else -> PINYIN[code]
+        isLowercaseEnabled -> lowercase
+        isCamelCaseEnabled -> camelcase
+        else -> asPinyin
     }
 
     internal val String.pinyinArrayList get() = ArrayList<String>().also { resultArrayList ->
