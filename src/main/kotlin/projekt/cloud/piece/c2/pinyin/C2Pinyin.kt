@@ -132,5 +132,20 @@ object C2Pinyin {
     fun InputStream.importDictionary() {
         dictionary += asDictionaryItems
     }
-
+    
+    @Volatile
+    var isLowercaseEnabled = false
+        set(value) {
+            isCamelCaseEnabled = false
+            field = value
+        }
+    
+    @Volatile
+    var isCamelCaseEnabled = false
+        set(value) {
+            isLowercaseEnabled = false
+            field = value
+        }
+    
+    
 }
