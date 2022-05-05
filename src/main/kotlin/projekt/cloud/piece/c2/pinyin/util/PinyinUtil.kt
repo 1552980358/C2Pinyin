@@ -81,6 +81,8 @@ object PinyinUtil {
     
     private val Char.lowercase get() = asPinyin.run { lowercase() }
     
-    private val Char.camelcase get() = asPinyin.run { first() + substring(1).lowercase() }
+    private val Char.camelcase get() = asPinyin.camelcase
+    
+    private val String.camelcase get() = first() + substring(1).lowercase()
 
 }
