@@ -4,6 +4,8 @@ import projekt.cloud.piece.c2.pinyin.dictionary.Dictionary
 import projekt.cloud.piece.c2.pinyin.util.ConstantValue.EMPTY_STR
 import projekt.cloud.piece.c2.pinyin.util.DictionaryUtil.asDictionaryItems
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil
+import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.camelCaseEnabled
+import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.lowercaseEnabled
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinArrayList
 import projekt.cloud.piece.c2.pinyin.util.PinyinUtil.pinyinStr
 import java.io.File
@@ -138,5 +140,15 @@ object C2Pinyin {
     
     @JvmStatic
     val isCamelcaseEnabled get() = camelCaseEnabled
+    
+    @JvmStatic
+    fun setCases(lowercase: Boolean = lowercaseEnabled, camelcase: Boolean = camelCaseEnabled) {
+        if (lowercase != lowercaseEnabled) {
+            lowercaseEnabled = lowercase
+        }
+        if (camelcase != camelCaseEnabled) {
+            camelCaseEnabled = camelcase
+        }
+    }
     
 }
