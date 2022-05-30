@@ -106,7 +106,7 @@
   // With File
   File("dict.txt").importDictionary()
   // With InputStream
-  File("dict.txt").inputStream().use { importDictionary() }     // Any child InputStream instance is supported
+  File("dict.txt").inputStream().use { it.importDictionary() }     // Any child InputStream instance is supported
   ```
   
 - Java
