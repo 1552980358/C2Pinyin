@@ -114,7 +114,11 @@ object PinyinUtil {
     
     private val Char.camelcase get() = asPinyin.camelcase
     
-    private val String.camelcase get() = first() + substring(1).lowercase()
+    private val String.camelcase get() = when {
+        isEmpty() -> ""
+        this.length == 1 -> "${first()}"
+        else -> first() + substring(1).lowercase()
+    }
     
     private val String.cases get() = when {
         lowercaseEnabled -> lowercase()
