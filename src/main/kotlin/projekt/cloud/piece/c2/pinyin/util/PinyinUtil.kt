@@ -52,11 +52,7 @@ object PinyinUtil {
         else -> camelCaseEnabled = true
     }
 
-    internal val Char.pinyinStr get() = when {
-        lowercaseEnabled -> lowercase
-        camelCaseEnabled -> camelcase
-        else -> asPinyin
-    }
+    internal val Char.pinyinStr get() = asPinyin.cases
 
     internal val String.pinyinArrayList get() = ArrayList<String>().also { resultArrayList ->
         repeat(length) { resultArrayList.add(EMPTY_STR) }
@@ -109,10 +105,6 @@ object PinyinUtil {
         }
         return index.toInt()
     }
-    
-    private val Char.lowercase get() = asPinyin.run { lowercase() }
-    
-    private val Char.camelcase get() = asPinyin.camelcase
     
     private val String.camelcase get() = when {
         isEmpty() -> ""
