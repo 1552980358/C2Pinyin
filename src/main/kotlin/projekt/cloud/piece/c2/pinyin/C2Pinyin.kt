@@ -152,7 +152,7 @@ object C2Pinyin {
     fun setCamelcase() = setCases(camelcase = true)
     
     @JvmStatic
-    fun setCases(lowercase: Boolean = false, camelcase: Boolean = false) =
+    private fun setCases(lowercase: Boolean = false, camelcase: Boolean = false) =
         updateCases(lowercase, camelcase)
     
 }
