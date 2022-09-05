@@ -135,6 +135,9 @@ object C2Pinyin {
     fun InputStream.importDictionary() {
         dictionary += asDictionaryItems
     }
+
+    @JvmStatic
+    val isUppercaseEnabled get() = !lowercaseEnabled && !camelCaseEnabled
     
     @JvmStatic
     val isLowercaseEnabled get() = lowercaseEnabled
