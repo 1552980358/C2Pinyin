@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "projekt.cloud.piece"
-version = "2.3.1"
+version = "2.3.2"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "projekt.cloud.piece"
             artifactId = "c2pinyin"
-            version = "2.3.1"
+            version = "2.3.2"
 
             from(components["java"])
         }
