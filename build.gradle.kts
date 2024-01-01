@@ -1,37 +1,46 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.22"
     id("maven-publish")
 }
 
-group = "projekt.cloud.piece"
-version = "2.3.3"
+object ProjectProperties {
+
+    val group: String
+        get() = "org.ks.chan"
+
+    val version: String
+        get() = "2.3.3"
+
+    val artifactId: String
+        get() = "C2Pinyin"
+
+}
+
+group = ProjectProperties.group
+version = ProjectProperties.version
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
 tasks.test {
     useJUnitPlatform()
 }
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+kotlin {
+    jvmToolchain(17)
 }
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
-            groupId = "projekt.cloud.piece"
-            artifactId = "c2pinyin"
-            version = "2.3.3"
-
-            from(components["java"])
+        create<MavenPublication>("Maven") {
+            groupId = ProjectProperties.group
+            artifactId = ProjectProperties.artifactId
+            version = ProjectProperties.version
+            from(components["kotlin"])
         }
     }
 }
