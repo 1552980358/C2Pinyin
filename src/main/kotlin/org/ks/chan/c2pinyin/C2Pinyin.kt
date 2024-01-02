@@ -3,6 +3,9 @@ package org.ks.chan.c2pinyin
 import org.ks.chan.c2pinyin.decode.INDEX_INVALID
 import org.ks.chan.c2pinyin.decode.PinyinTable
 import org.ks.chan.c2pinyin.decode.tableIndex
+import org.ks.chan.c2pinyin.dictionary.Dictionary
+import org.ks.chan.c2pinyin.dictionary.Phase
+import org.ks.chan.c2pinyin.dictionary.Word
 
 class C2Pinyin(
     dictionary: Dictionary = Dictionary(),
@@ -11,6 +14,7 @@ class C2Pinyin(
 
     /**
      * [C2Pinyin.dictionary]
+     * @access Private
      * @see [C2Pinyin]
      *
      * A [Dictionary] instance holding mapping data
@@ -46,6 +50,7 @@ class C2Pinyin(
          * [C2Pinyin.Global.Global]
          *
          * A JVM static getter for [GlobalInstance] of [C2Pinyin]
+         * [GlobalInstance] is a lazy field, will only be created when [C2Pinyin.Global] is called
          **/
         @JvmStatic
         val Global: C2Pinyin
@@ -109,12 +114,22 @@ class C2Pinyin(
 
     /**
      * [C2Pinyin.plusAssign]
-     * @param dictionary [Dictionary]
+     * @param word [Word]
      *
-     * Add values from [dictionary] into [C2Pinyin._dictionary]
+     * Add [word] into [C2Pinyin.dictionary]
      **/
-    operator fun plusAssign(dictionary: Dictionary) {
-        _dictionary += dictionary
+    operator fun plusAssign(word: Word) {
+        dictionary += word
+    }
+
+    /**
+     * [C2Pinyin.plusAssign]
+     * @param phase [Phase]
+     *
+     * Add [phase] into [C2Pinyin.dictionary]
+     **/
+    operator fun plusAssign(phase: Phase) {
+        dictionary += phase
     }
 
     /**
@@ -125,18 +140,6 @@ class C2Pinyin(
      **/
     operator fun minusAssign(key: String) {
         dictionary -= key
-    }
-
-    /**
-     * [C2Pinyin.minusAssign]
-     * @param dictionary [Dictionary]
-     *
-     * Remove all inside [dictionary] from [C2Pinyin._dictionary]
-     **/
-    operator fun minusAssign(dictionary: Dictionary) {
-        dictionary.forEach { key, _ ->
-            this -= key
-        }
     }
 
 }

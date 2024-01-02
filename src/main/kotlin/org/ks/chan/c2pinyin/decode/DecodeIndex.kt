@@ -1,6 +1,7 @@
 package org.ks.chan.c2pinyin.decode
 
 internal const val INDEX_INVALID = -1
+internal const val INDEX_JUMP = -2
 private const val INDEX_SPECIAL_ZERO = 176
 
 internal val Char.tableIndex: Int

@@ -1,56 +1,92 @@
 package org.ks.chan.c2pinyin
 
 import org.ks.chan.c2pinyin.decode.INDEX_INVALID
+import org.ks.chan.c2pinyin.decode.INDEX_JUMP
 import org.ks.chan.c2pinyin.decode.PinyinTable
 import org.ks.chan.c2pinyin.decode.tableIndex
-import org.ks.chan.c2pinyin.decode.validChinese
+import org.ks.chan.c2pinyin.dictionary.Dictionary
 
+/**
+ * [String.decodeToPinyinList]
+ * @access Internal
+ * @param letterCase [LetterCase]
+ * @param dictionary [Dictionary]
+ * @param indexArray [IntArray]
+ * @return [String][List]
+ *
+ * Responsible for decode [String] into pinyin [List] of [String]
+ **/
 internal fun String.decodeToPinyinList(
     letterCase: LetterCase,
     dictionary: Dictionary,
     indexArray: IntArray = IntArray(length) { INDEX_INVALID }
 ): List<String> {
-    // Find and set value as dictionary
-    if (dictionary.isNotEmpty()) {
-        dictionary.forEach { line, pinyin ->
-            validate(line = line, indexArray = indexArray) { startIndex ->
-                pinyin.forEachIndexed { index, tableIndex ->
-                    indexArray[startIndex + index] = tableIndex
+    // Find and set phases in dictionary
+    if (dictionary.hasPhase) {
+        // Loop through each phase
+        dictionary.forEachPhase { phase ->
+            // Check if any phase exists in string
+            validate(phase = phase.text, indexArray = indexArray) { startIndex ->
+                // Replace all index
+                phase.forEachIndexed { index, word ->
+                    indexArray[startIndex + index] = word.tableIndex
                 }
             }
         }
     }
-    // Fill all `-1`ed element
+
+    // Find if word is in dictionary
     forEachIndexed { index, char ->
-        if (indexArray[index] == INDEX_INVALID && char.validChinese) {
-            indexArray[index] = char.tableIndex
+        if (indexArray[index] == INDEX_INVALID) {
+            indexArray[index] = dictionary.findWord(char)?.tableIndex ?: char.tableIndex
         }
     }
+
     // Handle convert into pinyin, or copy that char as string
     return indexArray.mapIndexed { index, tableIndex ->
         when (tableIndex) {
-            INDEX_INVALID -> { this[index].toString() }
+            INDEX_INVALID, INDEX_JUMP -> { this[index].toString() }
             else -> { PinyinTable[tableIndex].let(letterCase::handleCase) }
         }
     }
 }
 
+/**
+ * [String.validate]
+ * @access Private
+ * @param phase [String]
+ * @param indexArray [IntArray]
+ * @param startIndex [Int]
+ * @param validAction callback action when [validateCheck] returns true
+ *
+ * Check if ranged [startIndex] to [String.length] of [phase] in [indexArray] is [INDEX_INVALID]
+ **/
 private fun String.validate(
-    line: String,
+    phase: String,
     indexArray: IntArray,
     // Make it reusable
-    startIndex: Int = indexOf(line),
+    startIndex: Int = indexOf(phase),
     validAction: (Int) -> Unit,
 ) {
     // Do a valid check
-    if (validateCheck(line = line, indexArray = indexArray, startIndex = startIndex)) {
+    if (validateCheck(phase, indexArray, startIndex)) {
         validAction(startIndex)
     }
 }
 
+/**
+ * [validateCheck]
+ * @access Private
+ * @param phase [String]
+ * @param indexArray [IntArray]
+ * @param startIndex
+ *
+ * Actual implementation of checking of [String.validate]
+ **/
 private fun validateCheck(
-    line: String, indexArray: IntArray, startIndex: Int,
+    phase: String, indexArray: IntArray, startIndex: Int,
 ): Boolean {
-    return indexArray.copyOfRange(startIndex, startIndex + line.length)
+    // Ensure all are `-1`
+    return indexArray.copyOfRange(startIndex, startIndex + phase.length)
         .all { it == INDEX_INVALID }
 }
