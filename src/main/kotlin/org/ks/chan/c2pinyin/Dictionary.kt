@@ -4,6 +4,7 @@ import org.ks.chan.c2pinyin.decode.PinyinTable
 import java.io.File
 import java.io.FileNotFoundException
 
+@Suppress("Unused")
 val File.asDictionary
     get() = Dictionary.fromFile(this)
 
@@ -20,6 +21,7 @@ class Dictionary(
         @JvmStatic
         fun fromLines(sequence: Sequence<String>) = fromLines(sequence.toList())
 
+        @Suppress("Unused")
         @JvmStatic
         fun fromLines(array: Array<String>) = fromLines(array.asList())
 
