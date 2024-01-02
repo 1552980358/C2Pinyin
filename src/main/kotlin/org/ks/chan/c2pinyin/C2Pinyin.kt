@@ -61,6 +61,7 @@ class C2Pinyin(
          **/
         @JvmOverloads
         @JvmStatic
+        @JvmName("ofChar")
         fun char(char: Char, letterCase: LetterCase = Global.letterCase): String =
             char.pinyin(letterCase = letterCase)
 
@@ -74,6 +75,7 @@ class C2Pinyin(
          **/
         @JvmOverloads
         @JvmStatic
+        @JvmName("ofString")
         fun string(string: String, letterCase: LetterCase = Global.letterCase): List<String> =
             string.pinyin(letterCase = letterCase)
 
