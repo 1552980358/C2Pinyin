@@ -19,12 +19,14 @@ sealed class LetterCase {
      **/
     data object Camel: LetterCase()
 
+    @Suppress("Unused")
     data object Upper: LetterCase() {
         override fun handleCase(camelCase: String): String {
             return camelCase.uppercase()
         }
     }
 
+    @Suppress("Unused")
     data object Lower: LetterCase() {
         override fun handleCase(camelCase: String): String {
             return camelCase.lowercase()
