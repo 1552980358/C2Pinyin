@@ -30,9 +30,9 @@ internal fun String.decodeToPinyinList(
     return indexArray.mapIndexed { index, tableIndex ->
         when (tableIndex) {
             INDEX_INVALID -> { this[index].toString() }
-            else -> { PinyinTable[tableIndex] }
+            else -> { PinyinTable[tableIndex].let(letterCase::handleCase) }
         }
-    }.map(letterCase::handleCase)
+    }
 }
 
 private fun String.validate(

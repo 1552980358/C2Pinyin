@@ -90,8 +90,8 @@ class C2Pinyin(
     fun char(char: Char, letterCase: LetterCase = _letterCase): String {
         return when (val tableIndex = char.tableIndex) {
             INDEX_INVALID -> { char.toString() }
-            else -> { PinyinTable[tableIndex] }
-        }.let(letterCase::handleCase)
+            else -> { PinyinTable[tableIndex].let(letterCase::handleCase) }
+        }
     }
 
     /**
