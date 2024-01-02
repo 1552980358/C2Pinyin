@@ -38,10 +38,8 @@ private fun Encoding.padding(charOffset: Int): Int {
     return paddings[charOffset / PADDING_MAX].toInt()
 }
 
-private val bitMasks: IntArray
-    get() = intArrayOf(1, 2, 4, 8, 16, 32, 64, 128)
 private val Int.bitMask: Int
-    get() = bitMasks[this % PADDING_MAX]
+    get() = 1 shl (this % PADDING_MAX)
 
 private fun Encoding.checkPaddingCorrection(charOffset: Int): Boolean {
     return (padding(charOffset) and charOffset.bitMask) != 0
