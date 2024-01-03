@@ -5,7 +5,6 @@ import org.ks.chan.c2pinyin.decode.INDEX_INVALID
 import org.ks.chan.c2pinyin.decode.INDEX_JUMP
 import org.ks.chan.c2pinyin.decode.PinyinTable
 import java.io.File
-import kotlin.jvm.functions.FunctionN
 
 /**
  * [Dictionary]
