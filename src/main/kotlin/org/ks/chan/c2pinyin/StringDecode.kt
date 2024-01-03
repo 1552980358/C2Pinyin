@@ -21,16 +21,13 @@ internal fun String.decodeToPinyinList(
     dictionary: Dictionary,
     indexArray: IntArray = IntArray(length) { INDEX_INVALID }
 ): List<String> {
-    // Find and set phases in dictionary
-    if (dictionary.hasPhase) {
-        // Loop through each phase
-        dictionary.forEachPhase { phase ->
-            // Check if any phase exists in string
-            validate(phase = phase.text, indexArray = indexArray) { startIndex ->
-                // Replace all index
-                phase.forEachIndexed { index, word ->
-                    indexArray[startIndex + index] = word.tableIndex
-                }
+    // Loop through each phase
+    dictionary.allPhases { phase ->
+        // Check if any phase exists in string
+        validate(phase = phase.text, indexArray = indexArray) { startIndex ->
+            // Replace all index
+            phase.forEachIndexed { index, word ->
+                indexArray[startIndex + index] = word.tableIndex
             }
         }
     }

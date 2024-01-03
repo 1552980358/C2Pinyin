@@ -5,6 +5,7 @@ import org.ks.chan.c2pinyin.decode.INDEX_INVALID
 import org.ks.chan.c2pinyin.decode.INDEX_JUMP
 import org.ks.chan.c2pinyin.decode.PinyinTable
 import java.io.File
+import kotlin.jvm.functions.FunctionN
 
 /**
  * [Dictionary]
@@ -46,19 +47,16 @@ class Dictionary {
     private val wordList = ArrayList<Word>()
 
     /**
-     * [Dictionary.hasPhase]
-     * @return [Boolean]
+     * [Dictionary.allPhases]
+     * @param action [kotlin.jvm.functions.Function1]
      *
-     * Checks if [Dictionary.phaseList] is empty or not
+     * Loop through all [phaseList] and perform [action]
      **/
-    val hasPhase: Boolean
-        get() = phaseList.isNotEmpty()
-
-    /**
-     *
-     **/
-    fun forEachPhase(action: (Phase) -> Unit) =
-        phaseList.forEach(action)
+    fun allPhases(action: (Phase) -> Unit) {
+        if (phaseList.isNotEmpty()) {
+            phaseList.forEach(action)
+        }
+    }
 
     /**
      * [Dictionary.findWord]
