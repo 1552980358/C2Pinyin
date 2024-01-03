@@ -8,7 +8,7 @@ import kotlin.io.encoding.ExperimentalEncodingApi
 
 private const val OFFSET_PADDING_START = 0
 private const val OFFSET_BASE = 19968
-private const val OFFSET_ENCODING_PART_DIFFERENCE = 7000
+internal const val OFFSET_ENCODING_PART_DIFFERENCE = 7000
 
 /**
  * [Encoding]

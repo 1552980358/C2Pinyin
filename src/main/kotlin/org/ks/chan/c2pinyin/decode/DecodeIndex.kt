@@ -44,7 +44,7 @@ internal val Char.tableIndex: Int
  * [Int.pinyinIndex]
  * @access Private
  * @param encoding [Encoding]
- * @param charOffset [Int]
+ * @param offset [Int]
  * @param indexRaw [Int]
  * @return [Int]
  *
@@ -52,11 +52,11 @@ internal val Char.tableIndex: Int
  **/
 private fun Int.pinyinIndex(
     encoding: Encoding = this.encoding,
-    charOffset: Int = this - encoding.offset,
-    indexRaw: Int = encoding.calculateIndex(charOffset)
+    offset: Int = this - encoding.offset,
+    indexRaw: Int = encoding.calculateIndex(offset)
 ): Int {
     return when {
-        encoding.checkPaddingCorrection(charOffset) -> {
+        encoding.checkPaddingCorrection(offset) -> {
             indexRaw or PADDING_MASK
         }
         else -> indexRaw
@@ -77,7 +77,7 @@ private const val INDEX_MAX = 0xFF
  *
  * Maximum padding of pinyin table
  **/
-private const val PADDING_MAX = 0xF
+private const val PADDING_MAX = 8
 
 /**
  * [Encoding.calculateIndex]
