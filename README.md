@@ -12,7 +12,7 @@
   }
 
   dependencies {
-      implementation("com.github.1552980358:C2Pinyin:3.0.0-rc1")
+      implementation("com.github.1552980358:C2Pinyin:3.0.0")
   }
   ```
 

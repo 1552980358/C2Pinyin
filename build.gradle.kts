@@ -9,7 +9,7 @@ object ProjectProperties {
         get() = "org.ks.chan"
 
     val version: String
-        get() = "3.0.0-rc1"
+        get() = "3.0.0"
 
     val artifactId: String
         get() = "C2Pinyin"
