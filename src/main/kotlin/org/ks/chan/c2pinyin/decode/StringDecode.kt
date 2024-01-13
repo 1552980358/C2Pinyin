@@ -1,9 +1,6 @@
-package org.ks.chan.c2pinyin
+package org.ks.chan.c2pinyin.decode
 
-import org.ks.chan.c2pinyin.decode.INDEX_INVALID
-import org.ks.chan.c2pinyin.decode.INDEX_JUMP
-import org.ks.chan.c2pinyin.decode.PinyinTable
-import org.ks.chan.c2pinyin.decode.tableIndex
+import org.ks.chan.c2pinyin.LetterCase
 import org.ks.chan.c2pinyin.dictionary.Dictionary
 
 /**

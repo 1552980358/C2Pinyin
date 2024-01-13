@@ -2,6 +2,7 @@ package org.ks.chan.c2pinyin
 
 import org.ks.chan.c2pinyin.decode.INDEX_INVALID
 import org.ks.chan.c2pinyin.decode.PinyinTable
+import org.ks.chan.c2pinyin.decode.decodeToPinyinList
 import org.ks.chan.c2pinyin.decode.tableIndex
 import org.ks.chan.c2pinyin.dictionary.Dictionary
 import org.ks.chan.c2pinyin.dictionary.Phase
