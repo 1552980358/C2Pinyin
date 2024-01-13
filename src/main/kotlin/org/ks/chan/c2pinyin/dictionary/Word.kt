@@ -1,7 +1,7 @@
 package org.ks.chan.c2pinyin.dictionary
 
 import org.ks.chan.c2pinyin.camelcase
-import org.ks.chan.c2pinyin.decode.INDEX_INVALID
+import org.ks.chan.c2pinyin.decode.INDEX_JUMP
 import org.ks.chan.c2pinyin.decode.PinyinTable
 
 /**
@@ -36,7 +36,7 @@ data class Word internal constructor(
      * @param char [Char]
      **/
     @Suppress("Unused")
-    constructor(char: Char): this(char, INDEX_INVALID)
+    constructor(char: Char): this(char, INDEX_JUMP)
 
     /**
      * [Word.string]
