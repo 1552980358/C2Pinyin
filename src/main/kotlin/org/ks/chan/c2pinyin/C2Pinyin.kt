@@ -1,9 +1,7 @@
 package org.ks.chan.c2pinyin
 
-import org.ks.chan.c2pinyin.decode.INDEX_INVALID
-import org.ks.chan.c2pinyin.decode.PinyinTable
+import org.ks.chan.c2pinyin.decode.decodeToPinyin
 import org.ks.chan.c2pinyin.decode.decodeToPinyinList
-import org.ks.chan.c2pinyin.decode.tableIndex
 import org.ks.chan.c2pinyin.dictionary.Dictionary
 import org.ks.chan.c2pinyin.dictionary.Phase
 import org.ks.chan.c2pinyin.dictionary.Word
@@ -96,10 +94,7 @@ class C2Pinyin(
      * Convert [string] into [String] pinyin
      **/
     fun char(char: Char, letterCase: LetterCase = _letterCase): String {
-        return when (val tableIndex = char.tableIndex) {
-            INDEX_INVALID -> { char.toString() }
-            else -> { PinyinTable[tableIndex].let(letterCase::handleCase) }
-        }
+        return char.decodeToPinyin(letterCase = letterCase, dictionary = dictionary)
     }
 
     /**

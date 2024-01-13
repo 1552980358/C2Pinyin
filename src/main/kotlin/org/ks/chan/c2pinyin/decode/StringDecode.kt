@@ -32,7 +32,7 @@ internal fun String.decodeToPinyinList(
     // Find if word is in dictionary
     forEachIndexed { index, char ->
         if (indexArray[index] == INDEX_INVALID) {
-            indexArray[index] = dictionary.findWord(char)?.tableIndex ?: char.tableIndex
+            indexArray[index] = char.decodeToPinyinTableIndex(dictionary)
         }
     }
 
