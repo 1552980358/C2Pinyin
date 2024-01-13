@@ -8,7 +8,8 @@ internal fun Char.decodeToPinyinTableIndex(dictionary: Dictionary): Int {
 }
 
 internal fun Char.decodeToPinyin(letterCase: LetterCase, dictionary: Dictionary): String {
-    return decodeToPinyinTableIndex(dictionary)
-        .let(PinyinTable::get)
-        .let(letterCase::handleCase)
+    return when (val tableIndex = decodeToPinyinTableIndex(dictionary)) {
+        INDEX_JUMP -> toString()
+        else -> PinyinTable[tableIndex].let(letterCase::handleCase)
+    }
 }
