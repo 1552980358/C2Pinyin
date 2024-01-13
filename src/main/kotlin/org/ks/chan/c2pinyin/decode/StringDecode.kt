@@ -62,9 +62,12 @@ private fun String.validate(
     startIndex: Int = indexOf(phase),
     validAction: (Int) -> Unit,
 ) {
-    // Do a valid check
-    if (validateCheck(phase, indexArray, startIndex)) {
-        validAction(startIndex)
+    // Check if phase exists in string
+    if (startIndex != INDEX_INVALID) {
+        // Validate if mapping not exists
+        if (validateCheck(phase, indexArray, startIndex)) {
+            validAction(startIndex)
+        }
     }
 }
 
