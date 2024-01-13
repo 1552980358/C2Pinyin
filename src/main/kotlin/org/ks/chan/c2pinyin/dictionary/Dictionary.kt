@@ -146,12 +146,13 @@ private fun decodeLine(
         val tableIndexList = line.substring(keyValueSeparatorIndex + 1)
             .split(PINYIN_SEPARATOR)
             .map {
-                when (it.trim()) {
+                when (val pinyin = it.trim()) {
                     PINYIN_JUMP -> INDEX_JUMP
-                    else -> PinyinTable.indexOf(it.camelcase)
+                    else -> PinyinTable.indexOf(pinyin.camelcase)
                 }
             }
         val text = line.substring(0, keyValueSeparatorIndex)
+            .trim()
         // Ensure all pinyin are valid
         if (tableIndexList.all { it != INDEX_INVALID }) {
             // Ensure all char(s) has/have pairing pinyin
