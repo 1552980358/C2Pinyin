@@ -1,10 +1,12 @@
 package rough_work.encoding
 
 import rough_work.encoding.ByteArrayConverter.base64
+import kotlin.test.Ignore
 import kotlin.test.Test
 
 class EncodingMiddle {
 
+    @Ignore
     @Test
     fun encode() {
         println()

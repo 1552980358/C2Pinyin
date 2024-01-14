@@ -1,9 +1,11 @@
 package rough_work
 
+import kotlin.test.Ignore
 import kotlin.test.Test
 
 class PinyinTable {
 
+    @Ignore
     @Test
     fun handlePinyinList() {
         val pinyinTable = pinyinList.map {
@@ -20,7 +22,7 @@ class PinyinTable {
         }
     }
 
-    val pinyinList = listOf(
+    private val pinyinList = listOf(
         "", "A", "AI", "AN", "ANG", "AO", "BA", "BAI",
         "BAN", "BANG", "BAO", "BEI", "BEN", "BENG", "BI", "BIAN", "BIAO", "BIE", "BIN", "BING",
         "BO", "BU", "CA", "CAI", "CAN", "CANG", "CAO", "CE", "CEN", "CENG", "CHA", "CHAI",
