@@ -28,7 +28,6 @@ class C2Pinyin(
 
     /**
      * [C2Pinyin.dictionary]
-     * @access Private
      * @see [C2Pinyin]
      *
      * A [Dictionary] instance holding mapping data
