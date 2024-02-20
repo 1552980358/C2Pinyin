@@ -7,9 +7,24 @@ import org.ks.chan.c2pinyin.dictionary.Phase
 import org.ks.chan.c2pinyin.dictionary.Word
 
 class C2Pinyin(
-    dictionary: Dictionary = Dictionary(),
-    letterCase: LetterCase = LetterCase.Camel,
-) {
+    letterCase: LetterCase,
+    dictionary: Dictionary,
+): C2PinyinSkeleton {
+
+    /**
+     * [C2Pinyin.letterCase]
+     * @see [C2Pinyin]
+     *
+     * A [LetterCase] instance deciding conversion pinyin string format
+     **/
+    private var _letterCase: LetterCase = letterCase
+    override var letterCase: LetterCase
+        get() = _letterCase
+        set(value) {
+            if (_letterCase != value) {
+                _letterCase = value
+            }
+        }
 
     /**
      * [C2Pinyin.dictionary]
@@ -20,26 +35,11 @@ class C2Pinyin(
      **/
     private var _dictionary: Dictionary = dictionary
     @Suppress("MemberVisibilityCanBePrivate")
-    var dictionary: Dictionary
+    override var dictionary: Dictionary
         get() = _dictionary
         set(value) {
             if (_dictionary != value) {
                 _dictionary = value
-            }
-        }
-
-    /**
-     * [C2Pinyin.letterCase]
-     * @see [C2Pinyin]
-     *
-     * A [LetterCase] instance deciding conversion pinyin string format
-     **/
-    private var _letterCase: LetterCase = letterCase
-    var letterCase: LetterCase
-        get() = _letterCase
-        set(value) {
-            if (_letterCase != value) {
-                _letterCase = value
             }
         }
 
