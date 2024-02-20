@@ -35,6 +35,7 @@ class C2PinyinBuilder(
 
     /**
      * [C2PinyinBuilder._dictionary]
+     * @access Private
      *
      * A nullable [Dictionary] instance holder
      **/
