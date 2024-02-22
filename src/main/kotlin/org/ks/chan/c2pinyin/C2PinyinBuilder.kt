@@ -23,11 +23,12 @@ fun C2Pinyin(
 
 /**
  * [C2PinyinBuilder]
+ * @access Internal
  * @param letterCase [LetterCase]
  * @param dictionary [Dictionary]
  * @param builderBlock [kotlin.jvm.functions.Function1]
  **/
-class C2PinyinBuilder(
+class C2PinyinBuilder internal constructor(
     override var letterCase: LetterCase,
     dictionary: Dictionary?,
     private val builderBlock: C2PinyinBuilder.() -> Unit,
