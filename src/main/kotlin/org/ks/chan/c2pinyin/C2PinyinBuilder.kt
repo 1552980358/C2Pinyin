@@ -69,11 +69,12 @@ class C2PinyinBuilder internal constructor(
 
     /**
      * [C2PinyinBuilder.build]
+     * @access Internal
      * @return [C2Pinyin]
      *
      * Invoke [C2PinyinBuilder.builderBlock] and return [C2Pinyin] instance
      **/
-    fun build(): C2Pinyin {
+    internal fun build(): C2Pinyin {
         builderBlock.invoke(this)
         return C2Pinyin(letterCase, dictionary)
     }
