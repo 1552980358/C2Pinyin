@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 group = "me.ks.chan"
@@ -10,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    implementation(libs.kotlinx.serialization)
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
