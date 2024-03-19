@@ -58,14 +58,14 @@ sealed class DictionaryItem {
      * [DictionaryItem.String]
      * @access Public to all
      * @inherit [DictionaryItem]
-     * @param charItems [Array]-[DictionaryItem.Char]
+     * @param charList [MutableList]-[DictionaryItem.Char]
      **/
     @Serializable
     @SerialName(SERIAL_NAME_STRING)
     data class String(
         @SerialName(SERIAL_NAME_STRING_CHARS)
-        val charItems: Array<Char>
-    ): DictionaryItem() {
+        val charList: MutableList<Char>
+    ): DictionaryItem(), MutableList<Char> by charList {
 
         /**
          * [DictionaryItem.string]
@@ -73,31 +73,10 @@ sealed class DictionaryItem {
          * @return [String]
          **/
         override val string: KString
-            get() = charItems.joinToString(
+            get() = charList.joinToString(
                 separator = JOIN_SEPARATOR,
-                transform = Char::string
+                transform = DictionaryItem::string
             )
-
-        /**
-         * [Any.equals]
-         * @access Public to all
-         * @param other [Any]
-         * @return [Boolean]
-         **/
-        override fun equals(other: Any?): Boolean {
-            if (other !is String) {
-                return false
-            }
-            return charItems.contentEquals(other.charItems)
-        }
-
-        /**
-         * [Any.hashCode]
-         * @access Public to all
-         * @return [Int]
-         **/
-        override fun hashCode(): Int =
-            charItems.contentHashCode()
 
     }
 
