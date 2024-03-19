@@ -1,0 +1,20 @@
+[
+    {
+        "type": "Char",
+        "char": "你",
+        "pinyin": 216
+    },
+    {
+        "type": "String",
+        "chars": [
+            {
+                "char": "你",
+                "pinyin": 216
+            },
+            {
+                "char": "好",
+                "pinyin": 114
+            }
+        ]
+    }
+]
