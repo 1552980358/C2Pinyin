@@ -1,7 +1,16 @@
 package me.ks.chan.c2pinyin.dictionary.item
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 private typealias KChar = Char
 private typealias KString = String
+
+private const val SERIAL_NAME_CHAR = "Char"
+private const val SERIAL_NAME_CHAR_CHAR = "char"
+private const val SERIAL_NAME_CHAR_PINYIN = "pinyin"
+private const val SERIAL_NAME_STRING = "String"
+private const val SERIAL_NAME_STRING_CHARS = "chars"
 
 private const val JOIN_SEPARATOR = ""
 
@@ -9,6 +18,7 @@ private const val JOIN_SEPARATOR = ""
  * [DictionaryItem]
  * @access Public to all
  **/
+@Serializable
 sealed class DictionaryItem {
 
     /**
@@ -25,7 +35,14 @@ sealed class DictionaryItem {
      * @param char [KChar]
      * @param pinyin [Int]
      **/
-    data class Char(val char: KChar, val pinyin: Int): DictionaryItem() {
+    @Serializable
+    @SerialName(SERIAL_NAME_CHAR)
+    data class Char(
+        @SerialName(SERIAL_NAME_CHAR_CHAR)
+        val char: KChar,
+        @SerialName(SERIAL_NAME_CHAR_PINYIN)
+        val pinyin: Int
+    ): DictionaryItem() {
 
         /**
          * [DictionaryItem.string]
@@ -43,7 +60,12 @@ sealed class DictionaryItem {
      * @inherit [DictionaryItem]
      * @param charItems [Array]-[DictionaryItem.Char]
      **/
-    data class String(val charItems: Array<Char>): DictionaryItem() {
+    @Serializable
+    @SerialName(SERIAL_NAME_STRING)
+    data class String(
+        @SerialName(SERIAL_NAME_STRING_CHARS)
+        val charItems: Array<Char>
+    ): DictionaryItem() {
 
         /**
          * [DictionaryItem.string]
