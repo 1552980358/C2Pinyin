@@ -6,9 +6,9 @@ import me.ks.chan.c2pinyin.dictionary.item.serde.SerdeSourceItem
 interface StringSerdeSource<T> {
 
     fun stringSource(string: String): SerdeSourceItem<String, T> {
+        @Suppress("UNCHECKED_CAST")
         return SerdeSourceItem(
             string,
-            @Suppress("UNCHECKED_CAST")
             this as AbstractSerde<T>,
             ::handleSource
         )
