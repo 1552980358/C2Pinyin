@@ -14,6 +14,9 @@ internal val Int.pinyinRaw: String?
         else -> PinyinArray[index]
     }
 
+internal val String.pinyinIndex: Int
+    get() = PinyinArray.indexOf(lowercase()).inc()
+
 /**
  * [PinyinArray]
  * @access Private in file
