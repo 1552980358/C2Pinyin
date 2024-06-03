@@ -59,11 +59,8 @@ private fun Encoding.index(
     charOffset: Int = code - offset,
     index: Int = indexOf(charOffset)
 ): Int {
-    return when {
-        requirePadded(charOffset) -> { index or PADDING_MASK
-        }
-        else -> { index }
-    }
+    return index.takeIf { requirePadded(charOffset) }
+        ?: index or PADDING_MASK
 }
 
 /**
