@@ -1,24 +1,15 @@
 package me.ks.chan.c2pinyin.convert
 
 /**
- * [INDEX_FIXING]
- * @access Private in file
- * @field [Int]
- *
- * An index fixing to requested index
- **/
-private const val INDEX_FIXING = 1
-
-/**
  * [Int.pinyinRaw]
  * @access Internal in module
  * @extend [Int]
  * @return [String]
  *
- * Convert index into pinyin [String] after fixing [Int] index with reducing [INDEX_FIXING]
+ * Convert index into pinyin [String] after fixing [Int] index with fixing
  **/
 internal val Int.pinyinRaw: String?
-    get() = when (val index = this - INDEX_FIXING) {
+    get() = when (val index = dec()) {
         !in PinyinArray.indices -> null
         else -> PinyinArray[index]
     }
