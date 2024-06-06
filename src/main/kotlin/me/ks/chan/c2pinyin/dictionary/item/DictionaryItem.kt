@@ -64,19 +64,20 @@ sealed class DictionaryItem {
     @SerialName(SERIAL_NAME_STRING)
     data class String(
         @SerialName(SERIAL_NAME_STRING_CHARS)
-        val charList: MutableList<Char>
-    ): DictionaryItem(), MutableList<Char> by charList {
+        val charList: List<Char>
+    ): DictionaryItem(), List<Char> by charList {
 
         /**
          * [DictionaryItem.string]
          * @access Internal to module
          * @return [String]
          **/
-        override val string: KString
-            get() = charList.joinToString(
+        override val string: KString by lazy {
+            charList.joinToString(
                 separator = JOIN_SEPARATOR,
                 transform = DictionaryItem::string
             )
+        }
 
     }
 
