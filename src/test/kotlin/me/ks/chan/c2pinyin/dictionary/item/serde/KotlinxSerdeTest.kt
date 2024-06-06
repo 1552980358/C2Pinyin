@@ -68,7 +68,7 @@ class KotlinxSerdeTest {
         val yin = '银'
         val hang = '行'
         val yinPinyin = 348
-        val hangPinyin = 362
+        val hangPinyin = 113
         val yinHang = "银行"
 
         val third = deserialized[2] as DictionaryItem.Char
