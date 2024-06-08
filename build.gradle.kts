@@ -14,7 +14,8 @@ repositories {
 
 dependencies {
     implementation(libs.jetbrains.kotlinx.serialization.json)
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+
+    testImplementation(libs.jetbrains.kotlin.test)
 }
 
 tasks.test {
@@ -24,6 +25,7 @@ tasks.test {
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_17
+        freeCompilerArgs.add("-Xcontext-receivers")
     }
     jvmToolchain(17)
 }

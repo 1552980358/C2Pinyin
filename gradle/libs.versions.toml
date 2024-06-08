@@ -8,3 +8,6 @@ jetbrains-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serializat
 
 [libraries]
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+# Test
+jetbrains-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
