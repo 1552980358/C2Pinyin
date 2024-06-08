@@ -1,6 +1,8 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.jetbrains.kotlin.jvm)
+    alias(libs.plugins.jetbrains.kotlinx.serialization)
 }
 
 group = "me.ks.chan"
@@ -11,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.kotlinx.serialization)
+    implementation(libs.jetbrains.kotlinx.serialization.json)
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
@@ -20,5 +22,8 @@ tasks.test {
 }
 
 kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
     jvmToolchain(17)
 }
