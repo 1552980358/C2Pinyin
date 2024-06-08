@@ -32,7 +32,7 @@ class KotlinxSerdeTest {
                                 },
                                 {
                                     "char": "行",
-                                    "pinyin": 362
+                                    "pinyin": 113
                                 }
                             ]
                         }
@@ -67,13 +67,14 @@ class KotlinxSerdeTest {
 
         val yin = '银'
         val hang = '行'
+        val xingPinyin = 362
         val yinPinyin = 348
         val hangPinyin = 113
         val yinHang = "银行"
 
         val third = deserialized[2] as DictionaryItem.Char
         assertEquals(hang, third.char)
-        assertEquals(hangPinyin, third.pinyin)
+        assertEquals(xingPinyin, third.pinyin)
 
         val forth = deserialized[3] as DictionaryItem.String
 
