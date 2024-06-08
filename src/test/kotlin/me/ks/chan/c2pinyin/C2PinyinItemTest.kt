@@ -4,11 +4,11 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import me.ks.chan.c2pinyin.dictionary.item.DictionaryItem
 
-class PinyinCharTest {
+class C2PinyinItemTest {
 
     @Test
     fun testCharItem() {
-        val pinyinCharList = ("这个银行到底行不行？").let(::PinyinString)
+        val pinyinCharList = ("这个银行到底行不行？").let(C2String::new)
 
         val charItem = DictionaryItem.Char('行', 348)
 
@@ -26,7 +26,7 @@ class PinyinCharTest {
 
     @Test
     fun testStringItem() {
-        val pinyinCharList = ("行走在行人上看到有几家银行").let(::PinyinString)
+        val pinyinCharList = ("行走在行人上看到有几家银行").let(C2String::new)
 
         val stringItem = DictionaryItem.String(
             listOf(
