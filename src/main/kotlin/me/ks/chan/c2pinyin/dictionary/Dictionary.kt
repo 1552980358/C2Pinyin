@@ -35,7 +35,9 @@ class Dictionary(
     val size: Int
         get() = stringList.size + charList.size
 
-    internal inline fun all(block: (List<DictionaryString>, List<DictionaryChar>) -> Unit) {
+    internal inline fun all(
+        block: (List<DictionaryString>, List<DictionaryChar>) -> Unit
+    ) {
         block(stringList, charList)
     }
 

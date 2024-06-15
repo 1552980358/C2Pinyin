@@ -55,6 +55,14 @@ data class C2String internal constructor(
         }
     }
 
+    internal inline fun allUnspecified(block: (PinyinChar) -> Unit) {
+        forEach { pinyinChar ->
+            if (pinyinChar.unspecified) {
+                block(pinyinChar)
+            }
+        }
+    }
+
     fun list(): List<String> {
         return charList.map(PinyinChar::pinyin)
     }
