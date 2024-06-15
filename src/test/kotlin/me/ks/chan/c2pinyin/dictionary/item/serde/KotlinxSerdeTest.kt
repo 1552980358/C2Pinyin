@@ -3,7 +3,8 @@ package me.ks.chan.c2pinyin.dictionary.item.serde
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryItem
+import me.ks.chan.c2pinyin.dictionary.item.DictionaryChar
+import me.ks.chan.c2pinyin.dictionary.item.DictionaryString
 
 class KotlinxSerdeTest {
 
@@ -49,11 +50,11 @@ class KotlinxSerdeTest {
         val haoPinyin = 114
         val niHao = "你好"
 
-        val first = deserialized.first() as DictionaryItem.Char
+        val first = deserialized.first() as DictionaryChar
         assertEquals(ni, first.char)
         assertEquals(niPinyin, first.pinyin)
 
-        val second = deserialized[1] as DictionaryItem.String
+        val second = deserialized[1] as DictionaryString
 
         val secondNi = second.charList[0]
         assertEquals(ni, secondNi.char)
@@ -72,11 +73,11 @@ class KotlinxSerdeTest {
         val hangPinyin = 113
         val yinHang = "银行"
 
-        val third = deserialized[2] as DictionaryItem.Char
+        val third = deserialized[2] as DictionaryChar
         assertEquals(hang, third.char)
         assertEquals(xingPinyin, third.pinyin)
 
-        val forth = deserialized[3] as DictionaryItem.String
+        val forth = deserialized[3] as DictionaryString
 
         val forthYin = forth.charList[0]
         assertEquals(yin, forthYin.char)

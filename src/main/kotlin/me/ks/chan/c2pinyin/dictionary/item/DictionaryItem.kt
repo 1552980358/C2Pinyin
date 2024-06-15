@@ -3,82 +3,82 @@ package me.ks.chan.c2pinyin.dictionary.item
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-private typealias KChar = Char
-private typealias KString = String
-
-private const val SERIAL_NAME_CHAR = "Char"
-private const val SERIAL_NAME_CHAR_CHAR = "char"
-private const val SERIAL_NAME_CHAR_PINYIN = "pinyin"
-private const val SERIAL_NAME_STRING = "String"
-private const val SERIAL_NAME_STRING_CHARS = "chars"
-
-private const val JOIN_SEPARATOR = ""
-
 /**
  * [DictionaryItem]
  * @access Public to all
  **/
 @Serializable
 sealed class DictionaryItem {
-
     /**
      * [DictionaryItem]
      * @access Internal to module
-     * @return [KString]
+     * @return [String]
      **/
-    abstract val string: KString
+    abstract val string: String
+}
 
-    /**
-     * [DictionaryItem.Char]
-     * @access Public to all
-     * @inherit [DictionaryItem]
-     * @param char [KChar]
-     * @param pinyin [Int]
-     **/
-    @Serializable
-    @SerialName(SERIAL_NAME_CHAR)
-    data class Char(
-        @SerialName(SERIAL_NAME_CHAR_CHAR)
-        val char: KChar,
-        @SerialName(SERIAL_NAME_CHAR_PINYIN)
-        val pinyin: Int
-    ): DictionaryItem() {
+/**
+ * [DictionaryChar]
+ * @access Public to all
+ * @inherit [DictionaryItem]
+ * @param char [Char]
+ * @param pinyin [Int]
+ **/
+@Serializable
+@SerialName("Char")
+data class DictionaryChar(
+    @SerialName("char")
+    val char: Char,
+    @SerialName("pinyin")
+    val pinyin: Int
+): DictionaryItem() {
 
-        /**
-         * [DictionaryItem.string]
-         * @access Internal to module
-         * @return [String]
-         **/
-        override val string: KString
-            get() = char.toString()
-
+    companion object Construct {
+        fun new(charPinyinPair: Pair<Char, Int>): DictionaryChar {
+            val (char, pinyin) = charPinyinPair
+            return DictionaryChar(char, pinyin)
+        }
     }
 
     /**
-     * [DictionaryItem.String]
-     * @access Public to all
-     * @inherit [DictionaryItem]
-     * @param charList [MutableList]-[DictionaryItem.Char]
+     * [DictionaryItem.string]
+     * @access Internal to module
+     * @return [String]
      **/
-    @Serializable
-    @SerialName(SERIAL_NAME_STRING)
-    data class String(
-        @SerialName(SERIAL_NAME_STRING_CHARS)
-        val charList: List<Char>
-    ): DictionaryItem(), List<Char> by charList {
+    override val string: String
+        get() = char.toString()
 
-        /**
-         * [DictionaryItem.string]
-         * @access Internal to module
-         * @return [String]
-         **/
-        override val string: KString by lazy {
-            charList.joinToString(
-                separator = JOIN_SEPARATOR,
-                transform = DictionaryItem::string
-            )
+}
+
+/**
+ * [DictionaryString]
+ * @access Public to all
+ * @inherit [DictionaryItem]
+ * @param charList [MutableList]-[DictionaryChar]
+ **/
+@Serializable
+@SerialName("String")
+data class DictionaryString(
+    @SerialName("chars")
+    val charList: List<DictionaryChar>
+): DictionaryItem(), List<DictionaryChar> by charList {
+
+    companion object Construct {
+        fun new(charList: List<DictionaryChar>): DictionaryString {
+            return DictionaryString(charList)
         }
+    }
 
+    /**
+     * [DictionaryItem.string]
+     * @access Internal to module
+     * @return [String]
+     **/
+    override val string: String by lazy {
+        charList.joinToString(
+            separator = "",
+            transform = DictionaryItem::string
+        )
     }
 
 }

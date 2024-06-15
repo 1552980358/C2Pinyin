@@ -1,17 +1,19 @@
 package me.ks.chan.c2pinyin.dictionary
 
 import java.io.File
+import me.ks.chan.c2pinyin.dictionary.item.DictionaryChar
 import me.ks.chan.c2pinyin.dictionary.item.DictionaryItem
+import me.ks.chan.c2pinyin.dictionary.item.DictionaryString
 import me.ks.chan.c2pinyin.dictionary.item.serde.SerdeSourceItem
 
 class Dictionary(
-    internal val stringList: MutableList<DictionaryItem.String>,
-    internal val charList: MutableList<DictionaryItem.Char>,
+    internal val stringList: MutableList<DictionaryString>,
+    internal val charList: MutableList<DictionaryChar>,
 ) {
 
     constructor(list: List<DictionaryItem> = mutableListOf()): this(
-        stringList = list.mapNotNull { it as? DictionaryItem.String }.toMutableList(),
-        charList = list.mapNotNull { it as? DictionaryItem.Char }.toMutableList(),
+        stringList = list.mapNotNull { it as? DictionaryString }.toMutableList(),
+        charList = list.mapNotNull { it as? DictionaryChar }.toMutableList(),
     )
 
     operator fun plusAssign(itemList: List<DictionaryItem>) {
@@ -20,8 +22,8 @@ class Dictionary(
 
     operator fun plusAssign(item: DictionaryItem) {
         when (item) {
-            is DictionaryItem.String -> { stringList += item }
-            is DictionaryItem.Char -> { charList += item }
+            is DictionaryString -> { stringList += item }
+            is DictionaryChar -> { charList += item }
         }
     }
 
@@ -33,11 +35,11 @@ class Dictionary(
     val size: Int
         get() = stringList.size + charList.size
 
-    internal inline fun strings(block: (DictionaryItem.String) -> Unit) {
+    internal inline fun strings(block: (DictionaryString) -> Unit) {
         stringList.forEach(block)
     }
 
-    internal inline fun chars(block: (DictionaryItem.Char) -> Unit) {
+    internal inline fun chars(block: (DictionaryChar) -> Unit) {
         charList.forEach(block)
     }
 

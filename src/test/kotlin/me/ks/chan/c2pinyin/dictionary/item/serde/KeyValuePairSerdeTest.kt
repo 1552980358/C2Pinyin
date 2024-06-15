@@ -2,7 +2,8 @@ package me.ks.chan.c2pinyin.dictionary.item.serde
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryItem
+import me.ks.chan.c2pinyin.dictionary.item.DictionaryChar
+import me.ks.chan.c2pinyin.dictionary.item.DictionaryString
 
 class KeyValuePairSerdeTest {
 
@@ -18,10 +19,10 @@ class KeyValuePairSerdeTest {
         )
         val deserialized = sourceList.flatMap(SerdeSourceItem<*, *>::deserialize)
 
-        val first = deserialized[0] as DictionaryItem.Char
+        val first = deserialized[0] as DictionaryChar
         assertEquals(348, first.pinyin)
 
-        val second = deserialized[1] as DictionaryItem.String
+        val second = deserialized[1] as DictionaryString
         assertEquals(362, second.charList[0].pinyin)
         assertEquals(113, second.charList[1].pinyin)
     }

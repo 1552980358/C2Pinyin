@@ -2,7 +2,9 @@ package me.ks.chan.c2pinyin.dictionary.item.serde
 
 import java.io.File
 import me.ks.chan.c2pinyin.convert.pinyinIndex
+import me.ks.chan.c2pinyin.dictionary.item.DictionaryChar
 import me.ks.chan.c2pinyin.dictionary.item.DictionaryItem
+import me.ks.chan.c2pinyin.dictionary.item.DictionaryString
 import me.ks.chan.c2pinyin.dictionary.item.serde.source.FileSerdeSource
 import me.ks.chan.c2pinyin.dictionary.item.serde.source.StringSerdeSource
 
@@ -58,13 +60,13 @@ private fun asDictionaryItem(textPinyinListPair: Pair<String, List<String>>): Di
     }
 
     return when (text.length) {
-        1 -> { DictionaryItem.Char(text.first(), indexList.first()) }
+        1 -> { DictionaryChar(text.first(), indexList.first()) }
         else -> {
             text.toCharArray()
                 .zip(indexList)
-                .map { (char, index) -> DictionaryItem.Char(char, index) }
+                .map(DictionaryChar::new)
                 .toMutableList()
-                .let(DictionaryItem::String)
+                .let(DictionaryString::new)
         }
     }
 }
