@@ -35,12 +35,8 @@ class Dictionary(
     val size: Int
         get() = stringList.size + charList.size
 
-    internal inline fun strings(block: (DictionaryString) -> Unit) {
-        stringList.forEach(block)
-    }
-
-    internal inline fun chars(block: (DictionaryChar) -> Unit) {
-        charList.forEach(block)
+    internal inline fun all(block: (List<DictionaryString>, List<DictionaryChar>) -> Unit) {
+        block(stringList, charList)
     }
 
     infix fun insert(block: DictionaryInsert.() -> Unit) {

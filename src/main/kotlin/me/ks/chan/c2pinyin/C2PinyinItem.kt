@@ -13,6 +13,9 @@ internal data class PinyinChar(
 
     private val string: String
         get() = char.toString()
+
+    internal inline val unspecified: Boolean
+        get() = index == null
 }
 
 data class C2String internal constructor(
@@ -24,27 +27,31 @@ data class C2String internal constructor(
          fun new(text: String) = C2String(text)
     }
 
-    internal fun indexListOf(
-        charItem: DictionaryChar
-    ): List<Int> = charList.mapIndexedNotNull { index, item ->
-        index.takeIf { item.index == null && item.char == charItem.char }
+    internal inline fun findStringIndex(
+        dictionaryString: DictionaryString,
+        block: (Int) -> Unit
+    ) {
+        if (string.length >= dictionaryString.size) {
+            dictionaryString.string
+                .toRegex()
+                .findAll(string)
+                .forEach { matchResult ->
+                    matchResult.range
+                        .takeIf { slice(it).all(PinyinChar::unspecified) }
+                        ?.first
+                        ?.let(block)
+                }
+        }
     }
 
-    internal fun indexListOf(
-        stringItem: DictionaryString,
-    ): List<Int> = when {
-        string.length < stringItem.charList.size -> { emptyList() }
-        else -> {
-            stringItem.string.toRegex()
-                .findAll(string)
-                .mapNotNull { matchResult ->
-                    matchResult.range
-                        .takeIf { range ->
-                            charList.subList(range.first, range.last)
-                                .all { char -> char.index == null }
-                        }?.start
-                }
-                .toList()
+    internal inline fun findCharIndex(
+        dictionaryChar: DictionaryChar,
+        block: (Int) -> Unit,
+    ) {
+        charList.forEachIndexed { index, item ->
+            if (item.index == null && item.char == dictionaryChar.char) {
+                block(index)
+            }
         }
     }
 
