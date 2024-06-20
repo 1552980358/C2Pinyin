@@ -1,19 +1,19 @@
 package me.ks.chan.c2pinyin.dictionary
 
 import java.io.File
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryChar
+import me.ks.chan.c2pinyin.dictionary.item.Word
 import me.ks.chan.c2pinyin.dictionary.item.DictionaryItem
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryString
+import me.ks.chan.c2pinyin.dictionary.item.Phrase
 import me.ks.chan.c2pinyin.dictionary.item.serde.SerdeSourceItem
 
 class Dictionary(
-    internal val stringList: MutableList<DictionaryString>,
-    internal val charList: MutableList<DictionaryChar>,
+    internal val phraseList: MutableList<Phrase>,
+    internal val wordList: MutableList<Word>,
 ) {
 
     constructor(list: List<DictionaryItem> = mutableListOf()): this(
-        stringList = list.mapNotNull { it as? DictionaryString }.toMutableList(),
-        charList = list.mapNotNull { it as? DictionaryChar }.toMutableList(),
+        phraseList = list.mapNotNull { it as? Phrase }.toMutableList(),
+        wordList = list.mapNotNull { it as? Word }.toMutableList(),
     )
 
     operator fun plusAssign(itemList: List<DictionaryItem>) {
@@ -22,23 +22,23 @@ class Dictionary(
 
     operator fun plusAssign(item: DictionaryItem) {
         when (item) {
-            is DictionaryString -> { stringList += item }
-            is DictionaryChar -> { charList += item }
+            is Phrase -> { phraseList += item }
+            is Word -> { wordList += item }
         }
     }
 
     operator fun plusAssign(dictionary: Dictionary) {
-        stringList += dictionary.stringList
-        charList += dictionary.charList
+        phraseList += dictionary.phraseList
+        wordList += dictionary.wordList
     }
 
     val size: Int
-        get() = stringList.size + charList.size
+        get() = phraseList.size + wordList.size
 
     internal inline fun all(
-        block: (List<DictionaryString>, List<DictionaryChar>) -> Unit
+        block: (List<Phrase>, List<Word>) -> Unit
     ) {
-        block(stringList, charList)
+        block(phraseList, wordList)
     }
 
     infix fun insert(block: DictionaryInsert.() -> Unit) {
@@ -47,16 +47,16 @@ class Dictionary(
             .let(::plusAssign)
     }
 
-    fun contains(string: String): Boolean {
-        return when {
-            string.isNotBlank() -> { false }
-            string.length == 1 -> {
-                val char = string.first()
-                charList.find { it.char == char } != null
-            }
-            else -> {
-                stringList.find { it.string == string } != null
-            }
+    fun contains(text: String): Boolean = when {
+        text.isNotBlank() -> { false }
+        text.length == 1 -> {
+            text.first()
+                .let { word ->
+                    wordList.find { it.char == word } != null
+                }
+        }
+        else -> {
+            phraseList.find { it.string == text } != null
         }
     }
 

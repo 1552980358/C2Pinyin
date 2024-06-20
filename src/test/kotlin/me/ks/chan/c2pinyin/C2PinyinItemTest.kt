@@ -2,8 +2,8 @@ package me.ks.chan.c2pinyin
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryChar
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryString
+import me.ks.chan.c2pinyin.dictionary.item.Word
+import me.ks.chan.c2pinyin.dictionary.item.Phrase
 
 class C2PinyinItemTest {
 
@@ -11,19 +11,19 @@ class C2PinyinItemTest {
     fun testCharItem() {
         val pinyinCharList = ("这个银行到底行不行？").let(C2String::new)
 
-        val dictionaryChar = DictionaryChar('行', 348)
+        val word = Word('行', 348)
 
         val indexList = mutableListOf<Int>()
-        pinyinCharList.findCharIndex(
-            dictionaryChar = dictionaryChar,
+        pinyinCharList.findWordIndex(
+            word = word,
             block = indexList::plusAssign,
         )
         assertEquals(listOf(3, 6, 8), indexList)
 
         indexList.clear()
-        pinyinCharList[3].index = 113
-        pinyinCharList.findCharIndex(
-            dictionaryChar = dictionaryChar,
+        pinyinCharList[3].pinyin = 113
+        pinyinCharList.findWordIndex(
+            word = word,
             block = indexList::plusAssign,
         )
         assertEquals(listOf(6, 8), indexList)
@@ -33,15 +33,15 @@ class C2PinyinItemTest {
     fun testStringItem() {
         val pinyinCharList = ("行走在行人上看到有几家银行").let(C2String::new)
 
-        val dictionaryString = DictionaryString(
+        val dictionaryString = Phrase(
             listOf(
-                DictionaryChar('银', 362),
-                DictionaryChar('行', 113)
+                Word('银', 362),
+                Word('行', 113)
             )
         )
 
         val indexList = mutableListOf<Int>()
-        pinyinCharList.findStringIndex(
+        pinyinCharList.findPhaseIndex(
             dictionaryString = dictionaryString,
             block = indexList::plusAssign,
         )

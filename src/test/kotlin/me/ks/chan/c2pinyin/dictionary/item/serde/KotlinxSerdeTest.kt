@@ -3,8 +3,8 @@ package me.ks.chan.c2pinyin.dictionary.item.serde
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryChar
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryString
+import me.ks.chan.c2pinyin.dictionary.item.Word
+import me.ks.chan.c2pinyin.dictionary.item.Phrase
 
 class KotlinxSerdeTest {
 
@@ -20,13 +20,13 @@ class KotlinxSerdeTest {
                 """
                     [
                         {
-                            "type": "Char",
+                            "type": "word",
                             "char": "行",
                             "pinyin": 362
                         },
                         {
-                            "type": "String",
-                            "chars": [
+                            "type": "phrase",
+                            "words": [
                                 {
                                     "char": "银",
                                     "pinyin": 348
@@ -50,17 +50,17 @@ class KotlinxSerdeTest {
         val haoPinyin = 114
         val niHao = "你好"
 
-        val first = deserialized.first() as DictionaryChar
+        val first = deserialized.first() as Word
         assertEquals(ni, first.char)
         assertEquals(niPinyin, first.pinyin)
 
-        val second = deserialized[1] as DictionaryString
+        val second = deserialized[1] as Phrase
 
-        val secondNi = second.charList[0]
+        val secondNi = second.words[0]
         assertEquals(ni, secondNi.char)
         assertEquals(niPinyin, secondNi.pinyin)
 
-        val secondHao = second.charList[1]
+        val secondHao = second.words[1]
         assertEquals(hao, secondHao.char)
         assertEquals(haoPinyin, secondHao.pinyin)
 
@@ -73,17 +73,17 @@ class KotlinxSerdeTest {
         val hangPinyin = 113
         val yinHang = "银行"
 
-        val third = deserialized[2] as DictionaryChar
+        val third = deserialized[2] as Word
         assertEquals(hang, third.char)
         assertEquals(xingPinyin, third.pinyin)
 
-        val forth = deserialized[3] as DictionaryString
+        val forth = deserialized[3] as Phrase
 
-        val forthYin = forth.charList[0]
+        val forthYin = forth.words[0]
         assertEquals(yin, forthYin.char)
         assertEquals(yinPinyin, forthYin.pinyin)
 
-        val forthHang = forth.charList[1]
+        val forthHang = forth.words[1]
         assertEquals(hang, forthHang.char)
         assertEquals(hangPinyin, forthHang.pinyin)
 

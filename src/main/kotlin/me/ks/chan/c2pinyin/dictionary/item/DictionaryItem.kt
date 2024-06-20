@@ -18,15 +18,15 @@ sealed class DictionaryItem {
 }
 
 /**
- * [DictionaryChar]
+ * [Word]
  * @access Public to all
  * @inherit [DictionaryItem]
  * @param char [Char]
  * @param pinyin [Int]
  **/
 @Serializable
-@SerialName("Char")
-data class DictionaryChar(
+@SerialName("word")
+data class Word(
     @SerialName("char")
     val char: Char,
     @SerialName("pinyin")
@@ -34,9 +34,9 @@ data class DictionaryChar(
 ): DictionaryItem() {
 
     companion object Construct {
-        fun new(charPinyinPair: Pair<Char, Int>): DictionaryChar {
+        fun new(charPinyinPair: Pair<Char, Int>): Word {
             val (char, pinyin) = charPinyinPair
-            return DictionaryChar(char, pinyin)
+            return Word(char, pinyin)
         }
     }
 
@@ -51,21 +51,21 @@ data class DictionaryChar(
 }
 
 /**
- * [DictionaryString]
+ * [Phrase]
  * @access Public to all
  * @inherit [DictionaryItem]
- * @param charList [MutableList]-[DictionaryChar]
+ * @param words [MutableList]-[Word]
  **/
 @Serializable
-@SerialName("String")
-data class DictionaryString(
-    @SerialName("chars")
-    val charList: List<DictionaryChar>
-): DictionaryItem(), List<DictionaryChar> by charList {
+@SerialName("phrase")
+data class Phrase(
+    @SerialName("words")
+    val words: List<Word>
+): DictionaryItem(), List<Word> by words {
 
     companion object Construct {
-        fun new(charList: List<DictionaryChar>): DictionaryString {
-            return DictionaryString(charList)
+        fun new(charList: List<Word>): Phrase {
+            return Phrase(charList)
         }
     }
 
@@ -75,7 +75,7 @@ data class DictionaryString(
      * @return [String]
      **/
     override val string: String by lazy {
-        charList.joinToString(
+        words.joinToString(
             separator = "",
             transform = DictionaryItem::string
         )

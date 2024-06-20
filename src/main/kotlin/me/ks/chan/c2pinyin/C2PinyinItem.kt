@@ -1,40 +1,40 @@
 package me.ks.chan.c2pinyin
 
 import me.ks.chan.c2pinyin.convert.pinyinRaw
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryChar
-import me.ks.chan.c2pinyin.dictionary.item.DictionaryString
+import me.ks.chan.c2pinyin.dictionary.item.Word
+import me.ks.chan.c2pinyin.dictionary.item.Phrase
 
 internal data class PinyinChar(
     val char: Char,
-    var index: Int? = null,
+    var pinyin: Int? = null,
 ) {
-    val pinyin: String
-        get() = index?.pinyinRaw ?: string
+    val pinyinStr: String
+        get() = pinyin?.pinyinRaw ?: string
 
     private val string: String
         get() = char.toString()
 
     internal inline val unspecified: Boolean
-        get() = index == null
+        get() = pinyin == null
 }
 
 data class C2String internal constructor(
-    internal val string: String,
-    internal val charList: List<PinyinChar> = string.map(::PinyinChar),
+    internal val text: String,
+    internal val charList: List<PinyinChar> = text.map(::PinyinChar),
 ): List<PinyinChar> by charList {
 
-    internal companion object {
+    internal companion object Construct {
          fun new(text: String) = C2String(text)
     }
 
-    internal inline fun findStringIndex(
-        dictionaryString: DictionaryString,
+    internal inline fun findPhaseIndex(
+        dictionaryString: Phrase,
         block: (Int) -> Unit
     ) {
-        if (string.length >= dictionaryString.size) {
+        if (text.length >= dictionaryString.size) {
             dictionaryString.string
                 .toRegex()
-                .findAll(string)
+                .findAll(text)
                 .forEach { matchResult ->
                     matchResult.range
                         .takeIf { slice(it).all(PinyinChar::unspecified) }
@@ -44,12 +44,12 @@ data class C2String internal constructor(
         }
     }
 
-    internal inline fun findCharIndex(
-        dictionaryChar: DictionaryChar,
+    internal inline fun findWordIndex(
+        word: Word,
         block: (Int) -> Unit,
     ) {
         charList.forEachIndexed { index, item ->
-            if (item.index == null && item.char == dictionaryChar.char) {
+            if (item.pinyin == null && item.char == word.char) {
                 block(index)
             }
         }
@@ -64,7 +64,7 @@ data class C2String internal constructor(
     }
 
     fun list(): List<String> {
-        return charList.map(PinyinChar::pinyin)
+        return charList.map(PinyinChar::pinyinStr)
     }
 
 }

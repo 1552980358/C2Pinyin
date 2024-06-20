@@ -1,12 +1,12 @@
 [
     {
-        "type": "Char",
+        "type": "word",
         "char": "你",
         "pinyin": 216
     },
     {
-        "type": "String",
-        "chars": [
+        "type": "phrase",
+        "words": [
             {
                 "char": "你",
                 "pinyin": 216
