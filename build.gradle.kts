@@ -22,11 +22,9 @@ tasks.test {
 }
 
 kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
-        freeCompilerArgs.add("-Xcontext-receivers")
-    }
-    jvmToolchain(17)
+    compilerOptions.jvmTarget = JvmTarget.JVM_21
+    jvmToolchain(21)
+
     sourceSets.all {
         (properties["kotlin.experimental.languageFeatures"] ?: "")
             .let(Any::toString)
