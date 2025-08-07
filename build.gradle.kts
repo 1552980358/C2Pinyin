@@ -14,7 +14,6 @@ repositories {
 
 dependencies {
     implementation(libs.jetbrains.kotlinx.serialization.json)
-
     testImplementation(libs.jetbrains.kotlin.test)
 }
 
@@ -28,4 +27,11 @@ kotlin {
         freeCompilerArgs.add("-Xcontext-receivers")
     }
     jvmToolchain(17)
+    sourceSets.all {
+        (properties["kotlin.experimental.languageFeatures"] ?: "")
+            .let(Any::toString)
+            .split(",")
+            .filter(String::isNotBlank)
+            .forEach(languageSettings::enableLanguageFeature)
+    }
 }
