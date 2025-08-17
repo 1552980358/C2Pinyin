@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":mapping"))
+
     implementation(libs.jetbrains.kotlinx.serialization.json)
     testImplementation(libs.jetbrains.kotlin.test)
 }
