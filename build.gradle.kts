@@ -29,8 +29,8 @@ kotlin {
     jvmToolchain(21)
 
     sourceSets.all {
-        (properties["kotlin.experimental.languageFeatures"] ?: "")
-            .let(Any::toString)
+        properties["kotlin.experimental.languageFeatures"]?.toString()
+            .orEmpty()
             .split(",")
             .filter(String::isNotBlank)
             .forEach(languageSettings::enableLanguageFeature)
