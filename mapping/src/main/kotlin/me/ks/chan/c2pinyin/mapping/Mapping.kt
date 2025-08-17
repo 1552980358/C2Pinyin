@@ -20,6 +20,9 @@ private sealed class Variant(val name: String) {
 
 private const val FileExt = ".bin"
 
+private inline val PathSeparator: Char
+    get() = File.pathSeparatorChar
+
 private sealed class Binary(val segment: Segment) {
 
     data object One: Binary(Segment.One)
@@ -33,7 +36,7 @@ private sealed class Binary(val segment: Segment) {
 
         fun buildPath(variant: Variant, segment: Segment): String =
             // mapping/index/1.bin
-            "${Root}${File.pathSeparatorChar}${variant.name}${File.pathSeparatorChar}${segment.name}${FileExt}"
+            "${Root}${PathSeparator}${variant.name}${PathSeparator}${segment.name}${FileExt}"
 
     }
 
