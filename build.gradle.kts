@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.jetbrains.kotlin.jvm)
     alias(libs.plugins.jetbrains.kotlinx.serialization)
+    `maven-publish`
 }
 
 group = "me.ks.chan"
@@ -33,5 +34,17 @@ kotlin {
             .split(",")
             .filter(String::isNotBlank)
             .forEach(languageSettings::enableLanguageFeature)
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = project.group.toString()
+            artifactId = "c2pinyin"
+            version = project.version.toString()
+
+            from(components["java"])
+        }
     }
 }
