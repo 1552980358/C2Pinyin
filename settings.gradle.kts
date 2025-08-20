@@ -4,3 +4,4 @@ plugins {
 rootProject.name = "C2Pinyin"
 
 include(":mapping")
+include(":pinyin")

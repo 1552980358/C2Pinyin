@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.jetbrains.kotlin.jvm)
-    alias(libs.plugins.jetbrains.kotlinx.serialization)
+    alias(libs.plugins.jetbrains.kotlinx.serialization) apply false
     `maven-publish`
 }
 
@@ -16,7 +16,7 @@ repositories {
 dependencies {
     implementation(project(":mapping"))
 
-    implementation(libs.jetbrains.kotlinx.serialization.json)
+
     testImplementation(libs.jetbrains.kotlin.test)
 }
 
