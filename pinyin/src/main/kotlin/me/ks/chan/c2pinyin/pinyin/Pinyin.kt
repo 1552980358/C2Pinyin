@@ -123,10 +123,10 @@ enum class PinyinVowel(val vowels: Array<String>) {
     En(arrayOf("en")),
 
     @SerialName("eng")
-    Eng(arrayOf("")),
+    Eng(arrayOf("eng")),
 
     @SerialName("i")
-    I(arrayOf("")),
+    I(arrayOf("i")),
 
     @SerialName("ian")
     IAn(arrayOf("i", "an")),
