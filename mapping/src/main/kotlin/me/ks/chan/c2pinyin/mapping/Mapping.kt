@@ -6,7 +6,7 @@ import java.io.InputStream
 private const val Root = "mapping"
 
 private sealed class Segment(
-    val name: String, private val utf8Offset: Int, private val utf8End: Int
+    val name: String, val utf8Offset: Int, val utf8End: Int
 ) {
     data object One: Segment("1", 0x4E00, 0x6958)
     data object Two: Segment("2", 0x6958, 0x84B0)
@@ -27,15 +27,15 @@ private const val FileExt = ".bin"
 private inline val PathSeparator: Char
     get() = File.pathSeparatorChar
 
-sealed class Binary(private val segment: Segment) {
+sealed class Binary protected constructor(private val segment: Segment) {
 
     internal data object One: Binary(Segment.One)
     internal data object Two: Binary(Segment.Two)
     internal data object Three: Binary(Segment.Three)
 
-    private companion object Static {
+    companion object Static {
 
-        inline val String.stream: InputStream
+        private inline val String.stream: InputStream
             get() = runCatching(Static::class.java::getResourceAsStream)
                 .mapCatching { inputStream -> inputStream!! }
                 .onFailure { exception ->
@@ -43,7 +43,7 @@ sealed class Binary(private val segment: Segment) {
                 }
                 .getOrThrow()
 
-        inline val InputStream.byteArray: ByteArray
+        private inline val InputStream.byteArray: ByteArray
             get() = runCatching { use(InputStream::readBytes) }
                 .onFailure { exception ->
                     throw IllegalArgumentException("Error reading resource $this from stream", exception)
@@ -51,8 +51,20 @@ sealed class Binary(private val segment: Segment) {
                 .getOrThrow()
 
         // mapping/<VARIANT: index|padding>/<SEGMENT: 1|2|3>.bin
-        operator fun Segment.invoke(variant: Variant): String =
+        private operator fun Segment.invoke(variant: Variant): String =
             "${Root}${PathSeparator}${variant.name}${PathSeparator}${this.name}${FileExt}"
+
+        operator fun contains(utf8Code: Int): Boolean {
+            return utf8Code in One || utf8Code in Two || utf8Code in Three
+        }
+
+        operator fun get(utf8Code: Int): Binary =
+            when (utf8Code) {
+                in One -> { One }
+                in Two -> { Two }
+                in Three -> { Three }
+                else -> { throw IllegalAccessException("""UTF-8 code "$utf8Code": Out of ZH UTF-8 range""") }
+            }
 
     }
 
@@ -60,6 +72,8 @@ sealed class Binary(private val segment: Segment) {
 
     val paddings by lazy { segment(Variant.Padding).stream.byteArray }
 
-    operator fun contains(utf8Code: Int) = utf8Code in segment
+    internal operator fun contains(utf8Code: Int) = utf8Code in segment
+
+    operator fun unaryMinus() = -segment.utf8Offset
 
 }
