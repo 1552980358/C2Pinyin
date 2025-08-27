@@ -14,8 +14,9 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":mapping"))
-
+    subprojects.forEach { subproject ->
+        implementation(subproject)
+    }
 
     testImplementation(libs.jetbrains.kotlin.test)
 }
