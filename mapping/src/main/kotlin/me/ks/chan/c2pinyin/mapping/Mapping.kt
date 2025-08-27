@@ -5,12 +5,16 @@ import java.io.InputStream
 
 private const val Root = "mapping"
 
-private sealed class Segment(val name: String, val utf8Offset: Int, val utf8End: Int) {
+private sealed class Segment(
+    val name: String, private val utf8Offset: Int, private val utf8End: Int
+) {
     data object One: Segment("1", 0x4E00, 0x6958)
     data object Two: Segment("2", 0x6958, 0x84B0)
     data object Three: Segment("3", 0x84B0, 0x9FA6)
 
-    val range = utf8Offset until utf8End
+    operator fun contains(utf8Code: Int): Boolean {
+        return utf8Code in (utf8Offset ..< utf8End)
+    }
 }
 
 private sealed class Variant(val name: String) {
@@ -54,8 +58,8 @@ sealed class Binary(private val segment: Segment) {
 
     val indexes by lazy { segment(Variant.Index).stream.byteArray }
 
-    val paddings by lazy { buildPath(variant = Variant.Padding, segment = segment).resourcesStream }
     val paddings by lazy { segment(Variant.Padding).stream.byteArray }
 
+    operator fun contains(utf8Code: Int) = utf8Code in segment
 
 }
