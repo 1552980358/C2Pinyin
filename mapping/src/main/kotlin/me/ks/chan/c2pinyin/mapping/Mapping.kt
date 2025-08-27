@@ -23,25 +23,39 @@ private const val FileExt = ".bin"
 private inline val PathSeparator: Char
     get() = File.pathSeparatorChar
 
-private sealed class Binary(val segment: Segment) {
+sealed class Binary(private val segment: Segment) {
 
-    data object One: Binary(Segment.One)
-    data object Two: Binary(Segment.Two)
-    data object Three: Binary(Segment.Three)
+    internal data object One: Binary(Segment.One)
+    internal data object Two: Binary(Segment.Two)
+    internal data object Three: Binary(Segment.Three)
 
     private companion object Static {
 
-        inline val String.resourcesStream: InputStream?
-            get() = Static::class.java.getResourceAsStream(this)
+        inline val String.stream: InputStream
+            get() = runCatching(Static::class.java::getResourceAsStream)
+                .mapCatching { inputStream -> inputStream!! }
+                .onFailure { exception ->
+                    throw IllegalArgumentException("Error reading resource $this from stream", exception)
+                }
+                .getOrThrow()
 
-        fun buildPath(variant: Variant, segment: Segment): String =
-            // mapping/index/1.bin
-            "${Root}${PathSeparator}${variant.name}${PathSeparator}${segment.name}${FileExt}"
+        inline val InputStream.byteArray: ByteArray
+            get() = runCatching { use(InputStream::readBytes) }
+                .onFailure { exception ->
+                    throw IllegalArgumentException("Error reading resource $this from stream", exception)
+                }
+                .getOrThrow()
+
+        // mapping/<VARIANT: index|padding>/<SEGMENT: 1|2|3>.bin
+        operator fun Segment.invoke(variant: Variant): String =
+            "${Root}${PathSeparator}${variant.name}${PathSeparator}${this.name}${FileExt}"
 
     }
 
-    val indexes by lazy { buildPath(variant = Variant.Index, segment = segment).resourcesStream }
+    val indexes by lazy { segment(Variant.Index).stream.byteArray }
 
     val paddings by lazy { buildPath(variant = Variant.Padding, segment = segment).resourcesStream }
+    val paddings by lazy { segment(Variant.Padding).stream.byteArray }
+
 
 }
