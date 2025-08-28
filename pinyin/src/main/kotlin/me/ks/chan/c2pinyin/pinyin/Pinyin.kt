@@ -11,12 +11,33 @@ import kotlinx.serialization.json.decodeFromStream
 @Serializable
 sealed class Pinyin {
 
+    companion object Static {
+
+        @Throws(IndexOutOfBoundsException::class, IllegalStateException::class)
+        operator fun get(index: Int): Pinyin = PinyinList[index]
+
+        @Throws(IllegalStateException::class)
+        operator fun get(pinyin: Pinyin): Int? {
+            return PinyinList.indexOfFirst { i -> i == pinyin }
+                .takeIf { it > -1 }
+        }
+
+    }
+
     @Serializable
     @SerialName("single-vowel")
     data class SingleVowel(
         @SerialName("vowel")
         val vowel: PinyinVowel
-    ): Pinyin()
+    ): Pinyin() {
+
+        override operator fun equals(other: Any?): Boolean {
+            return other is SingleVowel && other.vowel == vowel
+        }
+
+        override fun hashCode(): Int = vowel.hashCode()
+
+    }
 
     @Serializable
     @SerialName("initial-and-vowelled")
@@ -25,7 +46,15 @@ sealed class Pinyin {
         val initial: PinyinInitial,
         @SerialName("vowel")
         val vowel: PinyinVowel
-    ): Pinyin()
+    ): Pinyin() {
+
+        override operator fun equals(other: Any?): Boolean {
+            return other is InitialAndVowelled && other.initial == initial && other.vowel == vowel
+        }
+
+        override fun hashCode(): Int = 31 * initial.hashCode() + vowel.hashCode()
+
+    }
 
 }
 
