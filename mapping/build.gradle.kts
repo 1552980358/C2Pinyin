@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    compileOnly(libs.jetbrains.kotlin.stdlib)
     testImplementation(kotlin("test"))
 }
 

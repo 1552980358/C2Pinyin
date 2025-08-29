@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     implementation(libs.jetbrains.kotlinx.serialization.json)
+    compileOnly(libs.jetbrains.kotlin.stdlib)
     testImplementation(kotlin("test"))
 }
 

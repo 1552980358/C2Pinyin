@@ -9,6 +9,7 @@ jetbrains-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serializat
 gradleup-shadow = { id = "com.gradleup.shadow", version.ref = "gradleup-shadow" }
 
 [libraries]
+jetbrains-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 # Test

@@ -24,6 +24,7 @@ dependencies {
         implementation(subproject)
     }
 
+    compileOnly(libs.jetbrains.kotlin.stdlib)
     testImplementation(libs.jetbrains.kotlin.test)
 }
 
