@@ -13,6 +13,11 @@ repositories {
     mavenCentral()
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 dependencies {
     subprojects.forEach { subproject ->
         implementation(subproject)
