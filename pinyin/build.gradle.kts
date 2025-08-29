@@ -15,6 +15,11 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 tasks.test {
     useJUnitPlatform()
 }
