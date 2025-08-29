@@ -46,12 +46,12 @@ kotlin {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("shadow") {
             groupId = project.group.toString()
             artifactId = "c2pinyin"
             version = project.version.toString()
 
-            from(components["java"])
+            from(components["shadow"])
         }
     }
 }
