@@ -1,4 +1,4 @@
-package me.ks.chan.c2pinyin.mapping
+package me.ks.chan.c2pinyin.resources.mapping
 
 import java.io.File
 import java.io.InputStream
@@ -27,11 +27,11 @@ private const val FileExt = ".bin"
 private inline val PathSeparator: Char
     get() = File.pathSeparatorChar
 
-sealed class Binary protected constructor(private val segment: Segment) {
+internal sealed class Mapping(private val segment: Segment) {
 
-    internal data object One: Binary(Segment.One)
-    internal data object Two: Binary(Segment.Two)
-    internal data object Three: Binary(Segment.Three)
+    data object One: Mapping(Segment.One)
+    data object Two: Mapping(Segment.Two)
+    data object Three: Mapping(Segment.Three)
 
     companion object Static {
 
@@ -58,7 +58,7 @@ sealed class Binary protected constructor(private val segment: Segment) {
             return utf8Code in One || utf8Code in Two || utf8Code in Three
         }
 
-        operator fun get(utf8Code: Int): Binary =
+        operator fun get(utf8Code: Int): Mapping =
             when (utf8Code) {
                 in One -> { One }
                 in Two -> { Two }
@@ -72,7 +72,7 @@ sealed class Binary protected constructor(private val segment: Segment) {
 
     val paddings by lazy { segment(Variant.Padding).stream.byteArray }
 
-    internal operator fun contains(utf8Code: Int) = utf8Code in segment
+    operator fun contains(utf8Code: Int) = utf8Code in segment
 
     operator fun unaryMinus() = -segment.utf8Offset
 

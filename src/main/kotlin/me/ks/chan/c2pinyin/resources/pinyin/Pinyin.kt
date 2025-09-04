@@ -1,4 +1,4 @@
-package me.ks.chan.c2pinyin.pinyin
+package me.ks.chan.c2pinyin.resources.pinyin
 
 import java.io.InputStream
 import kotlin.jvm.Throws
@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 
 @Serializable
-sealed class Pinyin {
+internal sealed class Pinyin {
 
     companion object Static {
 

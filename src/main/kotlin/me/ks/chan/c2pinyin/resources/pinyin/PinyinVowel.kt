@@ -1,10 +1,10 @@
-package me.ks.chan.c2pinyin.pinyin
+package me.ks.chan.c2pinyin.resources.pinyin
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class PinyinVowel(val vowels: Array<String>) {
+enum class PinyinVowel(internal val vowels: Array<String>) {
 
     @SerialName("a")
     A(arrayOf("a")),

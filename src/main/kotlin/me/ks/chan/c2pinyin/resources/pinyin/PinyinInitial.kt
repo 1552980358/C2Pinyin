@@ -1,4 +1,4 @@
-package me.ks.chan.c2pinyin.pinyin
+package me.ks.chan.c2pinyin.resources.pinyin
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

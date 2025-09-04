@@ -2,8 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.jetbrains.kotlin.jvm)
-    alias(libs.plugins.jetbrains.kotlinx.serialization) apply false
-    alias(libs.plugins.gradleup.shadow)
+    alias(libs.plugins.jetbrains.kotlinx.serialization)
     `maven-publish`
 }
 
@@ -20,9 +19,7 @@ java {
 }
 
 dependencies {
-    subprojects.forEach { subproject ->
-        implementation(subproject)
-    }
+    implementation(libs.jetbrains.kotlinx.serialization.json)
 
     compileOnly(libs.jetbrains.kotlin.stdlib)
     testImplementation(libs.jetbrains.kotlin.test)
@@ -47,12 +44,12 @@ kotlin {
 
 publishing {
     publications {
-        create<MavenPublication>("shadow") {
+        create<MavenPublication>("maven") {
             groupId = project.group.toString()
             artifactId = "c2pinyin"
             version = project.version.toString()
 
-            from(components["shadow"])
+            from(components["java"])
         }
     }
 }
