@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 
 @Serializable
-internal sealed class Pinyin {
+sealed class Pinyin {
 
     companion object Static {
 
@@ -25,8 +25,9 @@ internal sealed class Pinyin {
     }
 
     @Serializable
+    @ConsistentCopyVisibility
     @SerialName("single-vowel")
-    data class SingleVowel(
+    data class SingleVowel internal constructor(
         @SerialName("vowel")
         val vowel: PinyinVowel
     ): Pinyin() {
@@ -40,8 +41,9 @@ internal sealed class Pinyin {
     }
 
     @Serializable
+    @ConsistentCopyVisibility
     @SerialName("initial-and-vowelled")
-    data class InitialAndVowelled(
+    data class InitialAndVowelled internal constructor(
         @SerialName("initial")
         val initial: PinyinInitial,
         @SerialName("vowel")
