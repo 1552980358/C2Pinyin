@@ -6,6 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 enum class PinyinInitial(val initial: String) {
 
+    @SerialName("")
+    None(""),
+
     @SerialName("b")
     B("b"),
 

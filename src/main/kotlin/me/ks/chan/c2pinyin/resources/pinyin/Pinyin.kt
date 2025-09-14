@@ -8,55 +8,73 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 
+@ConsistentCopyVisibility
 @Serializable
-sealed class Pinyin {
+data class Pinyin internal constructor(
+    @SerialName("initial")
+    val initial: PinyinInitial = PinyinInitial.None,
+    @SerialName("vowel")
+    val vowel: PinyinVowel
+) {
 
     companion object Static {
 
         @Throws(IndexOutOfBoundsException::class, IllegalStateException::class)
         operator fun get(index: Int): Pinyin = PinyinList[index]
 
-        @Throws(IllegalStateException::class)
-        operator fun get(pinyin: Pinyin): Int? {
-            return PinyinList.indexOfFirst { i -> i == pinyin }
-                .takeIf { it > -1 }
+        @Throws(NoSuchElementException::class)
+        operator fun get(pair: Pair<PinyinInitial, PinyinVowel>): Pinyin {
+            val target = Pinyin(pair.first, pair.second)
+            return PinyinList.first { pinyin -> pinyin == target }
         }
 
     }
 
-    @Serializable
-    @ConsistentCopyVisibility
-    @SerialName("single-vowel")
-    data class SingleVowel internal constructor(
-        @SerialName("vowel")
-        val vowel: PinyinVowel
-    ): Pinyin() {
-
-        override operator fun equals(other: Any?): Boolean {
-            return other is SingleVowel && other.vowel == vowel
+    override operator fun equals(other: Any?): Boolean {
+        return when (val other = other) {
+            is Pair<*, *> -> {
+                initial == other.first && vowel == other.second
+            }
+            is Pinyin -> {
+                initial == other.initial && vowel == other.vowel
+            }
+            else -> { false }
         }
-
-        override fun hashCode(): Int = vowel.hashCode()
-
     }
 
-    @Serializable
-    @ConsistentCopyVisibility
-    @SerialName("initial-and-vowelled")
-    data class InitialAndVowelled internal constructor(
-        @SerialName("initial")
-        val initial: PinyinInitial,
-        @SerialName("vowel")
-        val vowel: PinyinVowel
-    ): Pinyin() {
+    // @Serializable
+    // @ConsistentCopyVisibility
+    // @SerialName("single-vowel")
+    // data class SingleVowel internal constructor(
+    //     @SerialName("vowel")
+    //     val vowel: PinyinVowel
+    // ): Pinyin() {
+    //
+    //     override operator fun equals(other: Any?): Boolean {
+    //         return other is SingleVowel && other.vowel == vowel
+    //     }
+    //
+    //     override fun hashCode(): Int = vowel.hashCode()
+    //
+    // }
 
-        override operator fun equals(other: Any?): Boolean {
-            return other is InitialAndVowelled && other.initial == initial && other.vowel == vowel
-        }
-
-        override fun hashCode(): Int = 31 * initial.hashCode() + vowel.hashCode()
-
-    }
+    // @Serializable
+    // @ConsistentCopyVisibility
+    // @SerialName("initial-and-vowelled")
+    // data class InitialAndVowelled internal constructor(
+    //     @SerialName("initial")
+    //     val initial: PinyinInitial,
+    //     @SerialName("vowel")
+    //     val vowel: PinyinVowel
+    // ): Pinyin() {
+    //
+    //     override operator fun equals(other: Any?): Boolean {
+    //         return other is InitialAndVowelled && other.initial == initial && other.vowel == vowel
+    //     }
+    //
+    //     override fun hashCode(): Int = 31 * initial.hashCode() + vowel.hashCode()
+    //
+    // }
 
 }
 
