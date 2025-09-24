@@ -14,11 +14,11 @@ sealed class CharState {
 
     @ConsistentCopyVisibility
     data class Translated internal constructor(
-        override val char: Char,
-        val index: Int
+        override val char: Char, val index: Int, val pinyin: Pinyin
     ): CharState(), Accessed {
 
-        val pinyin: Pinyin by lazy { Pinyin[index] }
+        internal constructor(char: Char, index: Int):
+            this(char = char, index = index, pinyin = Pinyin[index])
 
     }
 
