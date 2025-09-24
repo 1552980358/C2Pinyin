@@ -17,6 +17,8 @@ data class Pinyin internal constructor(
     val vowel: PinyinVowel
 ) {
 
+    val index: Int by lazy { PinyinList.indexOfFirst(this::equals) }
+
     companion object Static {
 
         @Throws(IndexOutOfBoundsException::class, IllegalStateException::class)
