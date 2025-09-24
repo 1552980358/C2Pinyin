@@ -24,12 +24,13 @@ sealed class CharState {
 
     data class Unchanged(override val char: Char): CharState(), Accessed
 
-    @OptIn(ExperimentalContracts::class)
-    internal fun isAccessed(): Boolean {
-        contract {
-            returns(true) implies (this@CharState is Accessed)
+    internal val isAccessed: Boolean
+        @OptIn(ExperimentalContracts::class)
+        get() {
+            contract {
+                returns(true) implies (this@CharState is Accessed)
+            }
+            return (this is Accessed)
         }
-        return (this is Accessed)
-    }
 
 }

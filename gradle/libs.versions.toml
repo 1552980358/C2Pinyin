@@ -1,12 +1,10 @@
 [versions]
-kotlin = "2.2.0"
+kotlin = "2.2.20"
 kotlinx-serialization = "1.6.3"
-gradleup-shadow = "9.0.2"
 
 [plugins]
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetbrains-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-gradleup-shadow = { id = "com.gradleup.shadow", version.ref = "gradleup-shadow" }
 
 [libraries]
 jetbrains-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }

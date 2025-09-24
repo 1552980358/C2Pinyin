@@ -27,7 +27,7 @@ private inline val String.asRawCharStateMutableList: MutableList<CharState>
 private fun MutableList<CharState>.translate() {
     listIterator().let { iterator ->
         iterator.forEach { charState ->
-            if (!charState.isAccessed()) {
+            if (!charState.isAccessed) {
                 iterator.set(
                     when (val index = charState.char.pinyinIndex) {
                         null -> { CharState.Unchanged(charState.char) }

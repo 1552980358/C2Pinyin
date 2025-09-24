@@ -30,15 +30,18 @@ tasks.test {
 }
 
 kotlin {
-    compilerOptions.jvmTarget = JvmTarget.JVM_21
     jvmToolchain(21)
 
-    sourceSets.all {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_21
+
         properties["kotlin.experimental.languageFeatures"]?.toString()
             .orEmpty()
             .split(",")
+            .map(String::trim)
             .filter(String::isNotBlank)
-            .forEach(languageSettings::enableLanguageFeature)
+            .map { "-X$it" }
+            .forEach(freeCompilerArgs::add)
     }
 }
 
