@@ -10,4 +10,12 @@ data class Record internal constructor(
     val text: String,
     @SerialName("indexes")
     val indexList: List<Int>,
-)
+) {
+
+    init {
+        if (text.isBlank() || text.length != indexList.size) {
+            throw IllegalArgumentException("Record text must have the same length as indexes: $text")
+        }
+    }
+
+}
