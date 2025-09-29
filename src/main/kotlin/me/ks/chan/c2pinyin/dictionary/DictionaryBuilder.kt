@@ -14,7 +14,11 @@ private sealed interface Source {
 
     fun load(): List<Record>
 
-    data class PinyinPair(private val pair: Pair<String, List<Pinyin>>) : Source {
+    data class Dict(private val dictionary: Dictionary): Source {
+        override fun load(): List<Record> = dictionary.recordList
+    }
+
+    data class PinyinPair(private val pair: Pair<String, List<Pinyin>>): Source {
         override fun load(): List<Record> {
             val (text, pinyinList) = pair
             return listOf(
@@ -23,7 +27,7 @@ private sealed interface Source {
         }
     }
 
-    data class PinyinPairList(private val list: List<Pair<String, List<Pinyin>>>) : Source {
+    data class PinyinPairList(private val list: List<Pair<String, List<Pinyin>>>): Source {
         override fun load(): List<Record> {
             return list.map { (text: String, pinyinList: List<Pinyin>) ->
                 Record(text = text, indexList = pinyinList.map(Pinyin::index))
@@ -62,6 +66,11 @@ class DictionaryBuilder internal constructor() {
     private typealias Self = DictionaryBuilder
 
     private val sourceList = mutableListOf<Source>()
+
+    @JvmSynthetic
+    operator fun plusAssign(dictionary: Dictionary) {
+        sourceList += Source.Dict(dictionary)
+    }
 
     @JvmSynthetic
     operator fun plusAssign(pair: Pair<String, List<Pinyin>>) {
@@ -103,6 +112,8 @@ class DictionaryBuilder internal constructor() {
     operator fun plusAssign(inputStream: InputStream) {
         sourceList += Source.JsonStream(inputStream)
     }
+
+    infix fun add(dictionary: Dictionary) = apply { this += dictionary }
 
     infix fun add(pair: Pair<String, List<Pinyin>>) = apply { this += pair }
 

@@ -1,7 +1,7 @@
 package me.ks.chan.c2pinyin.dictionary
 
 data class Dictionary(
-    private val recordList: MutableList<Record>
+    internal val recordList: MutableList<Record>
 ) {
 
     companion object Static {
