@@ -165,5 +165,5 @@ class DictionaryBuilder internal constructor() {
 
 }
 
-fun Dictionary(builder: DictionaryBuilder.() -> Unit): Dictionary =
+fun Dictionary(builder: DictionaryBuilder.() -> Unit = {}): Dictionary =
     DictionaryBuilder().buildBlock(builder)
