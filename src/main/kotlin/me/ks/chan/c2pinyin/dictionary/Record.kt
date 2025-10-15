@@ -18,4 +18,11 @@ data class Record internal constructor(
         }
     }
 
+    val length: Int
+        get() = indexList.size
+
+    operator fun get(i: Int): Pair<Char, Int> {
+        return text[i] to indexList[i]
+    }
+
 }

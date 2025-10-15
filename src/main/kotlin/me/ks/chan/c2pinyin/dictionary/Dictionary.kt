@@ -1,6 +1,8 @@
 package me.ks.chan.c2pinyin.dictionary
 
-data class Dictionary(
+@ConsistentCopyVisibility
+data class Dictionary
+internal constructor(
     internal val recordList: MutableList<Record>
 ) {
 

@@ -1,6 +1,10 @@
 package me.ks.chan.c2pinyin.translate
 
-class Translator(text: String) {
+import me.ks.chan.c2pinyin.dictionary.Dictionary
+
+open class Translator(
+    dictionary: Dictionary, text: String
+) {
 
     private val charStateList: List<CharState>
 
@@ -10,6 +14,7 @@ class Translator(text: String) {
         }
 
         charStateList = text.asRawCharStateMutableList
+            .apply { dictionary.browseRecordList(text) }
             .apply(MutableList<CharState>::translate)
         if (!charStateList.none(CharState::isAccessed)) {
             throw IllegalStateException("Unexpected unaccessed translated state")
@@ -35,6 +40,35 @@ private fun MutableList<CharState>.translate() {
                     }
                 )
             }
+        }
+    }
+}
+
+private const val Char_AccessedPlaceholder = ' '
+
+context(charList: MutableList<CharState>)
+private fun Dictionary.browseRecordList(text: String) {
+    val stringBuilder = StringBuilder(text)
+    var str = text
+
+    recordList.forEach { record ->
+        if (str.length >= record.length) {
+            record.text.toRegex().findAll(str)
+                .map(MatchResult::range)
+                .takeIf(Sequence<IntRange>::any)
+                ?.onEach { range ->
+                    // l: IntRange `forEachIndexed` element index
+                    // i: IntRange content element
+                    range.forEachIndexed { l: Int, i: Int ->
+                        // Set all matched text into placeholder prevent re-matched
+                        stringBuilder[i] = Char_AccessedPlaceholder
+                        // Set char list targeted element as translated
+                        val (char, index) = record[l]
+                        charList[i] = CharState.Translated(char, index)
+                    }
+                }
+                // Update [str] to latest text, if any
+                ?.also { str = stringBuilder.toString() }
         }
     }
 }
