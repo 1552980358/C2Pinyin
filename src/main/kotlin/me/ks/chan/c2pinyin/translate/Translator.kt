@@ -30,6 +30,21 @@ private inline val String.asRawCharStateMutableList: MutableList<CharState>
  * Map non-[Accessed] elements into [CharState.Translated] with checking using contract function [CharState.isAccessed]
  **/
 private fun MutableList<CharState>.translate() {
+    /**
+     * The [MutableList.replaceAll] will trigger [MutableListIterator.set] on all elements by [Iterator] even
+     * there is a false replacement condition
+     **/
+    // replaceAll { charState ->
+    //     when {
+    //         !charState.isAccessed -> {
+    //             when (val index = charState.char.pinyinIndex) {
+    //                 null -> { CharState.Unchanged(charState.char) }
+    //                 else -> { CharState.Translated(charState.char, index) }
+    //             }
+    //         }
+    //         else -> { charState }
+    //     }
+    // }
     listIterator().let { iterator ->
         iterator.forEach { charState ->
             if (!charState.isAccessed) {
