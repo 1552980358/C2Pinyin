@@ -150,7 +150,9 @@ class DictionaryBuilder internal constructor() {
     }
 
     fun build(): Dictionary = Dictionary(
-        recordList = sourceList.flatMapTo(ArrayList(), Source::load)
+        recordList =
+            sourceList.flatMap(Source::load)    // 1. Load source flatting & flat all into 1-dimension list
+                .distinctBy(Record::text)         // 2. Keep text appears first only, making smaller memory usage
     )
 
     @OptIn(ExperimentalContracts::class)

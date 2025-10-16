@@ -3,7 +3,7 @@ package me.ks.chan.c2pinyin.dictionary
 @ConsistentCopyVisibility
 data class Dictionary
 internal constructor(
-    internal val recordList: MutableList<Record>
+    internal val recordList: List<Record>
 ) {
 
     companion object Static {
