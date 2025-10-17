@@ -3,7 +3,7 @@ package me.ks.chan.c2pinyin.dictionary
 @ConsistentCopyVisibility
 data class Dictionary
 internal constructor(
-    internal val recordList: List<Record>
+    internal var recordList: List<Record>
 ) {
 
     companion object Static {
@@ -11,8 +11,28 @@ internal constructor(
         fun builder() = DictionaryBuilder()
     }
 
-    init {
-        TODO("Dictionary placeholder class, will be implemented in the future.")
+    @JvmSynthetic
+    operator fun plusAssign(record: Record) {
+        recordList = (recordList + record).distinctRecordText
     }
 
+    @JvmSynthetic
+    operator fun plusAssign(otherRecordList: List<Record>) {
+        recordList = (recordList + otherRecordList).distinctRecordText
+    }
+
+    @JvmSynthetic
+    operator fun plusAssign(dictionary: Dictionary) {
+        recordList = (recordList + dictionary.recordList).distinctRecordText
+    }
+
+    infix fun add(record: Record) = apply { this += record }
+
+    infix fun add(otherRecordList: List<Record>) = apply { this += otherRecordList }
+
+    infix fun add(dictionary: Dictionary) = apply { this += dictionary }
+
 }
+
+private inline val List<Record>.distinctRecordText: List<Record>
+    get() = distinctBy(Record::text)
