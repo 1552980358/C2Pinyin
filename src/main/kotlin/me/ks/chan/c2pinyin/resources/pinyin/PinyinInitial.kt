@@ -3,79 +3,127 @@ package me.ks.chan.c2pinyin.resources.pinyin
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+private const val Initial_None = ""
+private const val Initial_B = "b"
+private const val Initial_P = "p"
+private const val Initial_M = "m"
+private const val Initial_F = "f"
+private const val Initial_D = "d"
+private const val Initial_T = "t"
+private const val Initial_N = "n"
+private const val Initial_L = "l"
+private const val Initial_G = "g"
+private const val Initial_K = "k"
+private const val Initial_H = "h"
+private const val Initial_J = "j"
+private const val Initial_Q = "q"
+private const val Initial_X = "x"
+private const val Initial_ZH = "zh"
+private const val Initial_CH = "ch"
+private const val Initial_SH = "sh"
+private const val Initial_R = "r"
+private const val Initial_Z = "z"
+private const val Initial_C = "c"
+private const val Initial_S = "s"
+private const val Initial_Y = "y"
+private const val Initial_W = "w"
+
 @Serializable
-enum class PinyinInitial(val initial: String) {
+enum class PinyinInitial(@Suppress("unused") internal val str: String) {
 
-    @SerialName("")
-    None(""),
+    @SerialName(Initial_None)
+    None(Initial_None),
 
-    @SerialName("b")
-    B("b"),
+    @Suppress("unused")
+    @SerialName(Initial_B)
+    B(Initial_B),
 
-    @SerialName("p")
-    P("p"),
+    @Suppress("unused")
+    @SerialName(Initial_P)
+    P(Initial_P),
 
-    @SerialName("m")
-    M("m"),
+    @Suppress("unused")
+    @SerialName(Initial_M)
+    M(Initial_M),
 
-    @SerialName("f")
-    F("f"),
+    @Suppress("unused")
+    @SerialName(Initial_F)
+    F(Initial_F),
 
-    @SerialName("d")
-    D("d"),
+    @Suppress("unused")
+    @SerialName(Initial_D)
+    D(Initial_D),
 
-    @SerialName("t")
-    T("t"),
+    @Suppress("unused")
+    @SerialName(Initial_T)
+    T(Initial_T),
 
-    @SerialName("n")
-    N("n"),
+    @Suppress("unused")
+    @SerialName(Initial_N)
+    N(Initial_N),
 
-    @SerialName("l")
-    L("l"),
+    @Suppress("unused")
+    @SerialName(Initial_L)
+    L(Initial_L),
 
-    @SerialName("g")
-    G("g"),
+    @Suppress("unused")
+    @SerialName(Initial_G)
+    G(Initial_G),
 
-    @SerialName("k")
-    K("k"),
+    @Suppress("unused")
+    @SerialName(Initial_K)
+    K(Initial_K),
 
-    @SerialName("h")
-    H("h"),
+    @Suppress("unused")
+    @SerialName(Initial_H)
+    H(Initial_H),
 
-    @SerialName("j")
-    J("j"),
+    @Suppress("unused")
+    @SerialName(Initial_J)
+    J(Initial_J),
 
-    @SerialName("q")
-    Q("q"),
+    @Suppress("unused")
+    @SerialName(Initial_Q)
+    Q(Initial_Q),
 
-    @SerialName("x")
-    X("x"),
+    @Suppress("unused")
+    @SerialName(Initial_X)
+    X(Initial_X),
 
-    @SerialName("zh")
-    ZH("zh"),
+    @Suppress("unused")
+    @SerialName(Initial_ZH)
+    ZH(Initial_ZH),
 
-    @SerialName("ch")
-    CH("ch"),
+    @Suppress("unused")
+    @SerialName(Initial_CH)
+    CH(Initial_CH),
 
-    @SerialName("sh")
-    SH("sh"),
+    @Suppress("unused")
+    @SerialName(Initial_SH)
+    SH(Initial_SH),
 
-    @SerialName("r")
-    R("r"),
+    @Suppress("unused")
+    @SerialName(Initial_R)
+    R(Initial_R),
 
-    @SerialName("z")
-    Z("z"),
+    @Suppress("unused")
+    @SerialName(Initial_Z)
+    Z(Initial_Z),
 
-    @SerialName("c")
-    C("c"),
+    @Suppress("unused")
+    @SerialName(Initial_C)
+    C(Initial_C),
 
-    @SerialName("s")
-    S("s"),
+    @Suppress("unused")
+    @SerialName(Initial_S)
+    S(Initial_S),
 
-    @SerialName("y")
-    Y("y"),
+    @Suppress("unused")
+    @SerialName(Initial_Y)
+    Y(Initial_Y),
 
-    @SerialName("w")
-    W("w")
+    @Suppress("unused")
+    @SerialName(Initial_W)
+    W(Initial_W)
 
 }
