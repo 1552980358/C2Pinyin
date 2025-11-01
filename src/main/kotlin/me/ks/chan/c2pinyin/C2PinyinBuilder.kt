@@ -8,13 +8,15 @@ import me.ks.chan.c2pinyin.dictionary.DictionaryBuilder
 
 /**
  * Do not call [C2PinyinBuilder] constructor directly, call [C2Pinyin] or [C2Pinyin.builder] to create instance instead
+ * @constructor [Dictionary], [LetterCases]
  **/
 @ConsistentCopyVisibility
 data class C2PinyinBuilder
 internal constructor(
     @set:JvmSynthetic
     @get:JvmSynthetic
-    var dictionary: Dictionary? = null
+    var dictionary: Dictionary? = null,
+    var letterCases: LetterCases = LetterCases.Default,
 ) {
 
     private typealias Self = C2PinyinBuilder
@@ -51,6 +53,14 @@ internal constructor(
     context(_: C2PinyinBuilder)
     fun dictionary(block: DictionaryBuilder.() -> Unit) {
         dictionary = DictionaryBuilder().buildBlock(block)
+    }
+
+    /**
+     * @param setLetterCases [LetterCases]
+     * @return [C2PinyinBuilder]
+     **/
+    fun setLetterCases(setLetterCases: LetterCases): Self = apply {
+        letterCases = setLetterCases
     }
 
     /**

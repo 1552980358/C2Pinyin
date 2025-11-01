@@ -1,9 +1,12 @@
 package me.ks.chan.c2pinyin.translate
 
+import me.ks.chan.c2pinyin.LetterCases
 import me.ks.chan.c2pinyin.dictionary.Dictionary
 
 open class Translator(
-    dictionary: Dictionary, text: String
+    text: String,
+    dictionary: Dictionary,
+    private val letterCases: LetterCases, // TODO: Placeholder global value
 ) {
 
     private val charStateList: List<CharState>
