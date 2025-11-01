@@ -1,26 +1,19 @@
 package me.ks.chan.c2pinyin
 
-import me.ks.chan.c2pinyin.resources.pinyin.Pinyin
 import me.ks.chan.c2pinyin.resources.pinyin.PinyinInitial
 import me.ks.chan.c2pinyin.resources.pinyin.PinyinVowel
 
-data class LetterCases(
-    val initial: LetterCase = LetterCase.Uppercase,
-    val vowel: LetterCase = LetterCase.Lowercase,
-) {
-
-    companion object {
-        val Default by lazy(::LetterCases)
-    }
-
-    internal operator fun invoke(pinyin: Pinyin): Pair<String, List<String>> {
-        val (pinyinInitial, pinyinVowel) = pinyin
-        return initial(pinyinInitial) to vowel(pinyinVowel)
-    }
-
-}
-
 sealed class LetterCase {
+
+    data class Pair(
+        val initial: LetterCase = Uppercase, val vowel: LetterCase = Lowercase
+    ) {
+
+        companion object {
+            val Default by lazy(LetterCase::Pair)
+        }
+
+    }
 
     internal abstract operator fun invoke(initial: PinyinInitial): String
     internal abstract operator fun invoke(vowel: PinyinVowel): List<String>

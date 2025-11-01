@@ -40,30 +40,30 @@ interface C2Pinyin {
     val dictionary: Dictionary
 
     /**
-     * Independent [LetterCases] instance for each [C2Pinyin] instance
+     * Independent [LetterCase.Pair] instance for each [C2Pinyin] instance
      **/
-    var letterCases: LetterCases
+    var letterCasePair: LetterCase.Pair
 
     /**
      * Call to translate param [text] with [C2Pinyin.dictionary] returning [Translator] as result
      * @param text [String]
      * @return [Translator]
      **/
-    fun translate(text: String, letterCases: LetterCases = this.letterCases): Translator
+    fun translate(text: String, letterCasePair: LetterCase.Pair = this.letterCasePair): Translator
 
 }
 
 /**
  * Internal implementation class for [C2Pinyin]
- * @constructor [Dictionary], [LetterCases]
+ * @constructor [Dictionary], [LetterCasePair]
  **/
 internal data class C2PinyinImpl(
     override val dictionary: Dictionary = Dictionary(),
-    override var letterCases: LetterCases = LetterCases.Default,
+    override var letterCasePair: LetterCase.Pair = LetterCase.Pair.Default,
 ): C2Pinyin {
 
-    override fun translate(text: String, letterCases: LetterCases): Translator {
-        return Translator(text, dictionary, letterCases)
+    override fun translate(text: String, letterCasePair: LetterCase.Pair): Translator {
+        return Translator(text, dictionary, letterCasePair)
     }
 
 }
