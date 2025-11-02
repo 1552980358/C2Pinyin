@@ -1,12 +1,27 @@
 package me.ks.chan.c2pinyin.translate
 
 import me.ks.chan.c2pinyin.LetterCase
+import me.ks.chan.c2pinyin.Symbol
 import me.ks.chan.c2pinyin.dictionary.Dictionary
 
+/**
+ * Result translator class for translating Chinese characters into Chinese-Pinyin paired list
+ * @param text [String]
+ * @param dictionary [Dictionary]
+ * @param letterCasePair [LetterCase.Pair]
+ * @param pinyinStringSymbol [Symbol.PinyinString]
+ * @param joinPinyinStringsSymbol [Symbol.JoinPinyinStrings]
+ * @constructor [String], [Dictionary], [LetterCase.Pair], [Symbol.PinyinString], [Symbol.JoinPinyinStrings]
+ **/
 open class Translator(
     text: String,
     dictionary: Dictionary,
-    private val letterCasePair: LetterCase.Pair, // TODO: Placeholder global value
+    @Suppress("unused")
+    private val letterCasePair: LetterCase.Pair,                    // TODO: Placeholder global value
+    @Suppress("unused")
+    private val pinyinStringSymbol: Symbol.PinyinString,            // TODO: Placeholder global value
+    @Suppress("unused")
+    private val joinPinyinStringsSymbol: Symbol.JoinPinyinStrings,  // TODO: Placeholder global value
 ) {
 
     private val charStateList: List<CharState>

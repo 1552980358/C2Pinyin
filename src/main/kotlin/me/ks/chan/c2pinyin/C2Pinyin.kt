@@ -45,25 +45,53 @@ interface C2Pinyin {
     var letterCasePair: LetterCase.Pair
 
     /**
+     * Independent [Symbol.PinyinString] instance for each [C2Pinyin] instance
+     **/
+    var pinyinStringSymbol: Symbol.PinyinString
+
+    /**
+     * Independent [Symbol.JoinPinyinStrings] instance for each [C2Pinyin] instance
+     **/
+    var joinPinyinStringsSymbol: Symbol.JoinPinyinStrings
+
+    /**
      * Call to translate param [text] with [C2Pinyin.dictionary] returning [Translator] as result
      * @param text [String]
+     * @param letterCasePair [LetterCase.Pair]
+     * @param pinyinStringSymbol [Symbol.PinyinString]
+     * @param joinPinyinStringsSymbol [Symbol.JoinPinyinStrings]
      * @return [Translator]
      **/
-    fun translate(text: String, letterCasePair: LetterCase.Pair = this.letterCasePair): Translator
+    fun translate(
+        text: String,
+        letterCasePair: LetterCase.Pair = this.letterCasePair,
+        pinyinStringSymbol: Symbol.PinyinString = this.pinyinStringSymbol,
+        joinPinyinStringsSymbol: Symbol.JoinPinyinStrings = this.joinPinyinStringsSymbol
+    ): Translator
 
 }
 
 /**
  * Internal implementation class for [C2Pinyin]
- * @constructor [Dictionary], [LetterCasePair]
+ * @constructor [Dictionary], [LetterCase.Pair]
  **/
 internal data class C2PinyinImpl(
     override val dictionary: Dictionary = Dictionary(),
     override var letterCasePair: LetterCase.Pair = LetterCase.Pair.Default,
+    override var pinyinStringSymbol: Symbol.PinyinString = Symbol.PinyinString.Default,
+    override var joinPinyinStringsSymbol: Symbol.JoinPinyinStrings = Symbol.JoinPinyinStrings.Default,
 ): C2Pinyin {
 
-    override fun translate(text: String, letterCasePair: LetterCase.Pair): Translator {
-        return Translator(text, dictionary, letterCasePair)
+    /**
+     * @see C2Pinyin.translate
+     **/
+    override fun translate(
+        text: String,
+        letterCasePair: LetterCase.Pair,
+        pinyinStringSymbol: Symbol.PinyinString,
+        joinPinyinStringsSymbol: Symbol.JoinPinyinStrings
+    ): Translator {
+        return Translator(text, dictionary, letterCasePair, pinyinStringSymbol, joinPinyinStringsSymbol)
     }
 
 }
