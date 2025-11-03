@@ -23,6 +23,9 @@ internal constructor(
     private val joinPinyinStringsSymbol: Symbol.JoinPinyinStrings,
 ) {
 
+    /**
+     * [List] of [CharState] storing all [CharState.Accessed] implemented instance ([CharState.Translated] and [CharState.Unchanged])
+     **/
     private val charStateList: List<CharState>
 
     init {
@@ -36,13 +39,10 @@ internal constructor(
         }
     }
 
-    @Throws(IndexOutOfBoundsException::class, IllegalStateException::class)
-    fun pinyinStr(index: Int): String = charStateList[index].pinyinStr
-
     /**
-     * Join [charStateList] elements into [String] with [Symbol.JoinPinyinStrings] and [CharState.pinyinStr]
+     * Join [Translator.charStateList] elements into [String] with [Symbol.JoinPinyinStrings] and [CharState.pinyinStr]
      **/
-    val joinStr: String
+    val joinPinyinStr: String
         get() = charStateList.joinToString(
             separator = joinPinyinStringsSymbol.prefix.str,
             prefix = joinPinyinStringsSymbol.prefix.str,
@@ -54,7 +54,7 @@ internal constructor(
      * Build [this] ([CharState]) into [String]:
      * 1. When [this] is [CharState.Translated], handle letter casing with [LetterCase.Pair] and join [CharState.Translated.pinyin] into String with [Symbol.PinyinString]
      * 2. When [this] is [CharState.Unchanged], return [CharState.char] with changing into [String]
-     * 3. When [this] is [CharState.Raw], throw [IllegalStateException], which is an unexpected state that at current state is expected to be implemented [Accessed]
+     * 3. When [this] is [CharState.Raw], throw [IllegalStateException], which is an unexpected state that at current state is expected to be implemented [CharState.Accessed]
      *
      * @param [this] [CharState]
      * @throws IllegalStateException
@@ -134,7 +134,7 @@ private fun Dictionary.translate() = StringBuilder(str).let { stringBuilder ->
 }
 
 /**
- * Map non-[Accessed] elements into [CharState.Translated] with checking using contract function [CharState.isAccessed]
+ * Map non-[CharState.Accessed] elements into [CharState.Translated] with checking using contract function [CharState.isAccessed]
  * @param this [MutableList]<[CharState]>
  **/
 private fun MutableList<CharState>.translate() {

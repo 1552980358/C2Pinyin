@@ -4,13 +4,13 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 import me.ks.chan.c2pinyin.resources.pinyin.Pinyin
 
-internal interface Accessed
-
 sealed class CharState {
 
     abstract val char: Char
 
     data class Raw(override val char: Char): CharState()
+
+    internal interface Accessed
 
     @ConsistentCopyVisibility
     data class Translated internal constructor(
