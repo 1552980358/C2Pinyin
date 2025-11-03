@@ -14,15 +14,13 @@ import me.ks.chan.c2pinyin.dictionary.Record
  * @param joinPinyinStringsSymbol [Symbol.JoinPinyinStrings]
  * @constructor [String], [Dictionary], [LetterCase.Pair], [Symbol.PinyinString], [Symbol.JoinPinyinStrings]
  **/
-open class Translator(
+class Translator
+internal constructor(
     text: String,
     dictionary: Dictionary,
-    @Suppress("unused")
-    private val letterCasePair: LetterCase.Pair,                    // TODO: Placeholder global value
-    @Suppress("unused")
-    private val pinyinStringSymbol: Symbol.PinyinString,            // TODO: Placeholder global value
-    @Suppress("unused")
-    private val joinPinyinStringsSymbol: Symbol.JoinPinyinStrings,  // TODO: Placeholder global value
+    private val letterCasePair: LetterCase.Pair,
+    private val pinyinStringSymbol: Symbol.PinyinString,
+    private val joinPinyinStringsSymbol: Symbol.JoinPinyinStrings,
 ) {
 
     private val charStateList: List<CharState>
@@ -37,6 +35,45 @@ open class Translator(
             throw IllegalStateException("Unexpected unaccessed translated state")
         }
     }
+
+    @Throws(IndexOutOfBoundsException::class, IllegalStateException::class)
+    fun pinyinStr(index: Int): String = charStateList[index].pinyinStr
+
+    /**
+     * Join [charStateList] elements into [String] with [Symbol.JoinPinyinStrings] and [CharState.pinyinStr]
+     **/
+    val joinStr: String
+        get() = charStateList.joinToString(
+            separator = joinPinyinStringsSymbol.prefix.str,
+            prefix = joinPinyinStringsSymbol.prefix.str,
+            postfix = joinPinyinStringsSymbol.prefix.str,
+            transform = { charState -> charState.pinyinStr }
+        )
+
+    /**
+     * Build [this] ([CharState]) into [String]:
+     * 1. When [this] is [CharState.Translated], handle letter casing with [LetterCase.Pair] and join [CharState.Translated.pinyin] into String with [Symbol.PinyinString]
+     * 2. When [this] is [CharState.Unchanged], return [CharState.char] with changing into [String]
+     * 3. When [this] is [CharState.Raw], throw [IllegalStateException], which is an unexpected state that at current state is expected to be implemented [Accessed]
+     *
+     * @param [this] [CharState]
+     * @throws IllegalStateException
+     * @return [String]
+     **/
+    private val CharState.pinyinStr: String
+        get() = when (val charState = this) {
+            is CharState.Translated -> {
+                buildString {
+                    append(pinyinStringSymbol.prefix)
+                    append(letterCasePair.initial(pinyin.initial))
+                    append(pinyinStringSymbol.separator)
+                    append(letterCasePair.vowel(pinyin.vowel).joinToString(separator = pinyinStringSymbol.vowels.str))
+                    append(pinyinStringSymbol.postfix)
+                }
+            }
+            is CharState.Unchanged -> { charState.char.toString() }
+            is CharState.Raw -> { throw IllegalStateException("Unexpected unaccessed translated state") }
+        }
 
 }
 
