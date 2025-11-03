@@ -13,10 +13,10 @@ private const val Symbol_Underscore = "_"
 sealed class Symbol {
 
     /**
-     * @param prefix [Symbol] (Default: [Blank]) Put [separatorStr] before each [Pinyin]
-     * @param separator [Symbol] (Default: [Underscore]) Put [separatorStr] after [Pinyin.initial] and before [Pinyin.vowel]
-     * @param vowels [Symbol] (Default: [Underscore]) Put [separatorStr] between each [vowels] string element
-     * @param postfix [Symbol] (Default: [Blank]) Put [separatorStr] after each [Pinyin]
+     * @param prefix [Symbol] (Default: [Blank]) Put [str] before each [Pinyin]
+     * @param separator [Symbol] (Default: [Underscore]) Put [str] after [Pinyin.initial] and before [Pinyin.vowel]
+     * @param vowels [Symbol] (Default: [Underscore]) Put [str] between each [vowels] string element
+     * @param postfix [Symbol] (Default: [Blank]) Put [str] after each [Pinyin]
      * @constructor [Symbol], [Symbol], [Symbol], [Symbol]
      **/
     data class PinyinString(
@@ -37,9 +37,9 @@ sealed class Symbol {
     }
 
     /**
-     * @param prefix [Symbol] (Default: [Blank]) Put [separatorStr] at the beginning of string
-     * @param pinyin [Symbol] (Default: [Space]) Put [separatorStr] to end of each [Pinyin] right after [PinyinString.postfix]
-     * @param postfix [Symbol] (Default: [Blank]) Put [separatorStr] at the end of string
+     * @param prefix [Symbol] (Default: [Blank]) Put [str] at the beginning of string
+     * @param pinyin [Symbol] (Default: [Space]) Put [str] to end of each [Pinyin] right after [PinyinString.postfix]
+     * @param postfix [Symbol] (Default: [Blank]) Put [str] at the end of string
      * @constructor [Symbol], [Symbol], [Symbol], [Symbol]
      **/
     data class JoinPinyinStrings(
@@ -59,13 +59,13 @@ sealed class Symbol {
     /**
      * The separator string instance
      **/
-    internal abstract val separatorStr: String
+    internal abstract val str: String
 
     /**
      * Preset blank "" (nothing) separator
      **/
     data object Blank: Symbol() {
-        override val separatorStr: String
+        override val str: String
             get() = Symbol_Blank
     }
 
@@ -73,7 +73,7 @@ sealed class Symbol {
      * Preset space " " separator
      **/
     data object Space: Symbol() {
-        override val separatorStr: String
+        override val str: String
             get() = Symbol_Space
     }
 
@@ -81,7 +81,7 @@ sealed class Symbol {
      * Preset underscore "`-`" separator
      **/
     data object Hyphen: Symbol() {
-        override val separatorStr: String
+        override val str: String
             get() = Symbol_Hyphen
     }
 
@@ -89,15 +89,21 @@ sealed class Symbol {
      * Preset underscore "`_`" separator
      **/
     data object Underscore: Symbol() {
-        override val separatorStr: String
+        override val str: String
             get() = Symbol_Underscore
     }
 
     /**
      * Custom customized separator string
-     * @param separatorStr [String] Custom separator string
+     * @param str [String] Custom separator string
      * @constructor [String]
      **/
-    data class Custom(override val separatorStr: String): Symbol()
+    data class Custom(override val str: String): Symbol()
+
+    /**
+     * Return [str] so that [StringBuilder] can [StringBuilder.append] symbol [str] into output [String] directly
+     * @return [String]
+     **/
+    override fun toString(): String = str
 
 }
