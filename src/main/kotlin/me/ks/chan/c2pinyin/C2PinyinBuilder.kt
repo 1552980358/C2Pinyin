@@ -17,6 +17,8 @@ internal constructor(
     @get:JvmSynthetic
     var dictionary: Dictionary? = null,
     var letterCasePair: LetterCase.Pair = LetterCase.Pair.Default,
+    var pinyinStringSymbol: Symbol.PinyinString = Symbol.PinyinString.Default,
+    var joinPinyinStringsSymbol: Symbol.JoinPinyinStrings = Symbol.JoinPinyinStrings.Default
 ) {
 
     private typealias Self = C2PinyinBuilder
@@ -65,6 +67,24 @@ internal constructor(
     }
 
     /**
+     * Set [pinyinStringSymbol]
+     * @param setPinyinStringSymbol [Symbol.PinyinString]
+     * @return [C2PinyinBuilder]
+     **/
+    fun setPinyinStringSymbol(setPinyinStringSymbol: Symbol.PinyinString): Self = apply {
+        pinyinStringSymbol = setPinyinStringSymbol
+    }
+
+    /**
+     * Set [joinPinyinStringsSymbol]
+     * @param setJoinPinyinStringsSymbol [Symbol.JoinPinyinStrings]
+     * @return [C2PinyinBuilder]
+     **/
+    fun setJoinPinyinStringsSymbol(setJoinPinyinStringsSymbol: Symbol.JoinPinyinStrings): Self = apply {
+        joinPinyinStringsSymbol = setJoinPinyinStringsSymbol
+    }
+
+    /**
      * Complete building and return [C2Pinyin] instance
      * @return [C2Pinyin]
      **/
@@ -81,7 +101,10 @@ internal constructor(
         contract { callsInPlace(builderBlock, InvocationKind.EXACTLY_ONCE) }
         builderBlock()
         return C2PinyinImpl(
-            dictionary = dictionary ?: Dictionary()
+            dictionary = dictionary ?: Dictionary(),
+            letterCasePair = letterCasePair,
+            pinyinStringSymbol = pinyinStringSymbol,
+            joinPinyinStringsSymbol = joinPinyinStringsSymbol
         )
     }
 
